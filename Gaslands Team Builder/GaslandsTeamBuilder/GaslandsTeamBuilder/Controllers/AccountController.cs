@@ -7,7 +7,7 @@ namespace GaslandsTeamBuilder.Controllers
     public class AccountController : BaseController
     {
         ICoreLogic _coreLogic;
-        //Test for redeploy
+
         public AccountController(ICoreLogic coreLogic)
         {
             _coreLogic = coreLogic;
