@@ -1,0 +1,58 @@
+﻿@model GaslandsTeamBuilder.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+
+<form id="LoginForm">
+    <div class="login_label">User:</div>
+    @Html.EditorFor(model => model.Username)<br />
+    <div class="login_label">Password:</div>
+    @Html.PasswordFor(model => model.Password, new { id = "passwordBox" })<br />
+
+    <div id="loginErrors" class="error"></div>
+</form>
+
+<br />
+<button id="Login" type="submit" onclick="Login()">Login</button>
+
+<br />
+@Html.ActionLink("Create New Account", "CreateUserPage", "Account", null, null)
+
+
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $(document.body).css({ 'cursor': 'wait' })
+    });
+    $(document).ajaxComplete(function () {
+        $(document.body).css({ 'cursor': 'default' })
+    });
+    $(document).ready(function () {
+        $("form input").keypress(function (e) {
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                $('#Login').click();
+                return true;
+            }
+        });
+    });
+
+    function Login() {
+        $("#LoginForm").addClass("disabled");
+        $.ajax({
+            url: "/Account/TryLogin",
+            data: $("#LoginForm").serialize(),
+            type: "POST",
+            success: function (result) {
+                if (result == "success") {
+                    window.location.href = "/Garage/";
+                }
+                else {
+                    $("#LoginForm").removeClass("disabled");
+                    $("#loginErrors").html(result);
+                }
+            }
+        });
+    }
+</script>

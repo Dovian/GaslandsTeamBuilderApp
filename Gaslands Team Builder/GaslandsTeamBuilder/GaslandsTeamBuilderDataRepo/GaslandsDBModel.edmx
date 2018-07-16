@@ -1,0 +1,994 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GaslandsAppModel.Store" Provider="Npgsql" ProviderManifestToken="10.4" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Build">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Name" Type="text" />
+          <Property Name="Driver" Type="text" />
+          <Property Name="Notes" Type="text" />
+          <Property Name="Sponsor" Type="int4" />
+          <Property Name="Vehicle" Type="int4" />
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildPerks">
+          <Key>
+            <PropertyRef Name="BuildKey" />
+            <PropertyRef Name="PerkKey" />
+          </Key>
+          <Property Name="BuildKey" Type="int4" Nullable="false" />
+          <Property Name="PerkKey" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildUpgrades">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="BuildKey" Type="int4" Nullable="false" />
+          <Property Name="UpgradeKey" Type="int4" Nullable="false" />
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildWeapons">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="BuildKey" Type="int4" Nullable="false" />
+          <Property Name="WeaponKey" Type="int4" Nullable="false" />
+          <Property Name="Facing" Type="text" Nullable="false" />
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerkClass">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+        </EntityType>
+        <EntityType Name="Perks">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="Class" Type="int4" />
+          <Property Name="CanCost" Type="int4" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Sponsor" Type="int4" />
+        </EntityType>
+        <EntityType Name="SpecialRules">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Sponsor">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+        </EntityType>
+        <EntityType Name="SponsorPerkClass">
+          <Key>
+            <PropertyRef Name="PerkClassKey" />
+            <PropertyRef Name="SponsorKey" />
+          </Key>
+          <Property Name="PerkClassKey" Type="int4" Nullable="false" />
+          <Property Name="SponsorKey" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Name" Type="text" />
+          <Property Name="Notes" Type="text" />
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeamBuilds">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="TeamKey" Type="int4" Nullable="false" />
+          <Property Name="BuildKey" Type="int4" Nullable="false" />
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upgrade">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="CanCost" Type="int4" />
+          <Property Name="BuildSlotCost" Type="int4" />
+          <Property Name="HullEffect" Type="int4" />
+          <Property Name="HandlingEffect" Type="int4" />
+          <Property Name="MaxGearEffect" Type="int4" />
+          <Property Name="CrewEffect" Type="int4" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="text" />
+          <Property Name="Password" Type="text" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="WeightClass" Type="text" />
+          <Property Name="Hull" Type="int4" />
+          <Property Name="Handling" Type="int4" />
+          <Property Name="MaxGear" Type="int4" />
+          <Property Name="Crew" Type="int4" />
+          <Property Name="BuildSlots" Type="int4" />
+          <Property Name="CanCost" Type="int4" />
+          <Property Name="SpecialRules" Type="text" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int4" Nullable="false" />
+          <Property Name="Name" Type="text" />
+          <Property Name="CanCost" Type="int4" />
+          <Property Name="FacingAllowed" Type="text" />
+          <Property Name="BuildSlotCost" Type="int4" />
+          <Property Name="Range" Type="text" />
+          <Property Name="Ammo" Type="int4" />
+          <Property Name="SpecialRules" Type="text" />
+        </EntityType>
+        <Association Name="BuildPerks_BuildKey_fkey">
+          <End Role="Build" Type="Self.Build" Multiplicity="1" />
+          <End Role="BuildPerks" Type="Self.BuildPerks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildPerks">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Build_Sponsor">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="0..1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="Sponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Build_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Build_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="Vehicle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildPerks_Perks">
+          <End Role="Perks" Type="Self.Perks" Multiplicity="1" />
+          <End Role="BuildPerks" Type="Self.BuildPerks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perks">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildPerks">
+              <PropertyRef Name="PerkKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildUpgrades_Build">
+          <End Role="Build" Type="Self.Build" Multiplicity="1" />
+          <End Role="BuildUpgrades" Type="Self.BuildUpgrades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildUpgrades">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildUpgrades_Upgrade">
+          <End Role="Upgrade" Type="Self.Upgrade" Multiplicity="1" />
+          <End Role="BuildUpgrades" Type="Self.BuildUpgrades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upgrade">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildUpgrades">
+              <PropertyRef Name="UpgradeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildWeapon_Weapon">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="1" />
+          <End Role="BuildWeapons" Type="Self.BuildWeapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildWeapons">
+              <PropertyRef Name="WeaponKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildWeapons_Build">
+          <End Role="Build" Type="Self.Build" Multiplicity="1" />
+          <End Role="BuildWeapons" Type="Self.BuildWeapons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildWeapons">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Perks_PerkClass">
+          <End Role="PerkClass" Type="Self.PerkClass" Multiplicity="0..1" />
+          <End Role="Perks" Type="Self.Perks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerkClass">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Perks">
+              <PropertyRef Name="Class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Perks_Sponsor">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="0..1" />
+          <End Role="Perks" Type="Self.Perks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Perks">
+              <PropertyRef Name="Sponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SponsorPerkClass_PerkClass">
+          <End Role="PerkClass" Type="Self.PerkClass" Multiplicity="1" />
+          <End Role="SponsorPerkClass" Type="Self.SponsorPerkClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerkClass">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="SponsorPerkClass">
+              <PropertyRef Name="PerkClassKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SponsorPerkClass_Sponsor">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="1" />
+          <End Role="SponsorPerkClass" Type="Self.SponsorPerkClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="SponsorPerkClass">
+              <PropertyRef Name="SponsorKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Team" Type="Self.Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamBuilds_Build">
+          <End Role="Build" Type="Self.Build" Multiplicity="1" />
+          <End Role="TeamBuilds" Type="Self.TeamBuilds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TeamBuilds">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamBuilds_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="TeamBuilds" Type="Self.TeamBuilds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TeamBuilds">
+              <PropertyRef Name="TeamKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GaslandsAppModelStoreContainer">
+          <EntitySet Name="Build" EntityType="Self.Build" Schema="public" store:Type="Tables" />
+          <EntitySet Name="BuildPerks" EntityType="Self.BuildPerks" Schema="public" store:Type="Tables" />
+          <EntitySet Name="BuildUpgrades" EntityType="Self.BuildUpgrades" Schema="public" store:Type="Tables" />
+          <EntitySet Name="BuildWeapons" EntityType="Self.BuildWeapons" Schema="public" store:Type="Tables" />
+          <EntitySet Name="PerkClass" EntityType="Self.PerkClass" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Perks" EntityType="Self.Perks" Schema="public" store:Type="Tables" />
+          <EntitySet Name="SpecialRules" EntityType="Self.SpecialRules" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Sponsor" EntityType="Self.Sponsor" Schema="public" store:Type="Tables" />
+          <EntitySet Name="SponsorPerkClass" EntityType="Self.SponsorPerkClass" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="public" store:Type="Tables" />
+          <EntitySet Name="TeamBuilds" EntityType="Self.TeamBuilds" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Upgrade" EntityType="Self.Upgrade" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="public" store:Type="Tables" />
+          <EntitySet Name="Weapon" EntityType="Self.Weapon" Schema="public" store:Type="Tables" />
+          <AssociationSet Name="BuildPerks_BuildKey_fkey" Association="Self.BuildPerks_BuildKey_fkey">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="BuildPerks" EntitySet="BuildPerks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_Sponsor" Association="Self.FK_Build_Sponsor">
+            <End Role="Sponsor" EntitySet="Sponsor" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_User" Association="Self.FK_Build_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_Vehicle" Association="Self.FK_Build_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildPerks_Perks" Association="Self.FK_BuildPerks_Perks">
+            <End Role="Perks" EntitySet="Perks" />
+            <End Role="BuildPerks" EntitySet="BuildPerks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildUpgrades_Build" Association="Self.FK_BuildUpgrades_Build">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="BuildUpgrades" EntitySet="BuildUpgrades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildUpgrades_Upgrade" Association="Self.FK_BuildUpgrades_Upgrade">
+            <End Role="Upgrade" EntitySet="Upgrade" />
+            <End Role="BuildUpgrades" EntitySet="BuildUpgrades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildWeapon_Weapon" Association="Self.FK_BuildWeapon_Weapon">
+            <End Role="Weapon" EntitySet="Weapon" />
+            <End Role="BuildWeapons" EntitySet="BuildWeapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildWeapons_Build" Association="Self.FK_BuildWeapons_Build">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="BuildWeapons" EntitySet="BuildWeapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Perks_PerkClass" Association="Self.FK_Perks_PerkClass">
+            <End Role="PerkClass" EntitySet="PerkClass" />
+            <End Role="Perks" EntitySet="Perks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Perks_Sponsor" Association="Self.FK_Perks_Sponsor">
+            <End Role="Sponsor" EntitySet="Sponsor" />
+            <End Role="Perks" EntitySet="Perks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SponsorPerkClass_PerkClass" Association="Self.FK_SponsorPerkClass_PerkClass">
+            <End Role="PerkClass" EntitySet="PerkClass" />
+            <End Role="SponsorPerkClass" EntitySet="SponsorPerkClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SponsorPerkClass_Sponsor" Association="Self.FK_SponsorPerkClass_Sponsor">
+            <End Role="Sponsor" EntitySet="Sponsor" />
+            <End Role="SponsorPerkClass" EntitySet="SponsorPerkClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_User" Association="Self.FK_Team_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Team" EntitySet="Team" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamBuilds_Build" Association="Self.FK_TeamBuilds_Build">
+            <End Role="Build" EntitySet="Build" />
+            <End Role="TeamBuilds" EntitySet="TeamBuilds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamBuilds_Team" Association="Self.FK_TeamBuilds_Team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="TeamBuilds" EntitySet="TeamBuilds" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GaslandsAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Build">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sponsor" Type="Int32" />
+          <Property Name="Vehicle" Type="Int32" />
+          <NavigationProperty Name="Sponsor1" Relationship="Self.FK_Build_Sponsor" FromRole="Build" ToRole="Sponsor" />
+          <NavigationProperty Name="Vehicle1" Relationship="Self.FK_Build_Vehicle" FromRole="Build" ToRole="Vehicle" />
+          <NavigationProperty Name="BuildWeapons" Relationship="Self.FK_BuildWeapons_Build" FromRole="Build" ToRole="BuildWeapons" />
+          <NavigationProperty Name="Perks" Relationship="Self.BuildPerks" FromRole="Build" ToRole="Perks" />
+          <NavigationProperty Name="BuildUpgrades" Relationship="GaslandsAppModel.FK_BuildUpgrades_Build" FromRole="Build" ToRole="BuildUpgrade" />
+          <NavigationProperty Name="TeamBuilds" Relationship="GaslandsAppModel.FK_TeamBuilds_Build" FromRole="Build" ToRole="TeamBuild" />
+          <Property Name="User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User1" Relationship="GaslandsAppModel.FK_Build_User" FromRole="Build" ToRole="User" />
+        </EntityType>
+        <EntityType Name="BuildWeapon">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="BuildKey" Type="Int32" Nullable="false" />
+          <Property Name="WeaponKey" Type="Int32" Nullable="false" />
+          <Property Name="Facing" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Build" Relationship="Self.FK_BuildWeapons_Build" FromRole="BuildWeapons" ToRole="Build" />
+          <NavigationProperty Name="Weapon" Relationship="Self.FK_BuildWeapon_Weapon" FromRole="BuildWeapons" ToRole="Weapon" />
+        </EntityType>
+        <EntityType Name="PerkClass">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Perks" Relationship="Self.FK_Perks_PerkClass" FromRole="PerkClass" ToRole="Perks" />
+          <NavigationProperty Name="Sponsors" Relationship="Self.SponsorPerkClass" FromRole="PerkClass" ToRole="Sponsor" />
+        </EntityType>
+        <EntityType Name="Perk">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Class" Type="Int32" />
+          <Property Name="CanCost" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sponsor" Type="Int32" />
+          <NavigationProperty Name="PerkClass" Relationship="Self.FK_Perks_PerkClass" FromRole="Perks" ToRole="PerkClass" />
+          <NavigationProperty Name="Sponsor1" Relationship="Self.FK_Perks_Sponsor" FromRole="Perks" ToRole="Sponsor" />
+          <NavigationProperty Name="Builds" Relationship="Self.BuildPerks" FromRole="Perks" ToRole="Build" />
+        </EntityType>
+        <EntityType Name="Sponsor">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Build_Sponsor" FromRole="Sponsor" ToRole="Build" />
+          <NavigationProperty Name="Perks" Relationship="Self.FK_Perks_Sponsor" FromRole="Sponsor" ToRole="Perks" />
+          <NavigationProperty Name="PerkClasses" Relationship="Self.SponsorPerkClass" FromRole="Sponsor" ToRole="PerkClass" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TeamBuilds" Relationship="GaslandsAppModel.FK_TeamBuilds_Team" FromRole="Team" ToRole="TeamBuild" />
+          <Property Name="User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User1" Relationship="GaslandsAppModel.FK_Team_User" FromRole="Team" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Upgrade">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CanCost" Type="Int32" />
+          <Property Name="BuildSlotCost" Type="Int32" />
+          <Property Name="HullEffect" Type="Int32" />
+          <Property Name="HandlingEffect" Type="Int32" />
+          <Property Name="MaxGearEffect" Type="Int32" />
+          <Property Name="CrewEffect" Type="Int32" />
+          <NavigationProperty Name="BuildUpgrades" Relationship="GaslandsAppModel.FK_BuildUpgrades_Upgrade" FromRole="Upgrade" ToRole="BuildUpgrade" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WeightClass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hull" Type="Int32" />
+          <Property Name="Handling" Type="Int32" />
+          <Property Name="MaxGear" Type="Int32" />
+          <Property Name="Crew" Type="Int32" />
+          <Property Name="BuildSlots" Type="Int32" />
+          <Property Name="CanCost" Type="Int32" />
+          <Property Name="SpecialRules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Build_Vehicle" FromRole="Vehicle" ToRole="Build" />
+        </EntityType>
+        <EntityType Name="Weapon">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CanCost" Type="Int32" />
+          <Property Name="FacingAllowed" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuildSlotCost" Type="Int32" />
+          <Property Name="Range" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Ammo" Type="Int32" />
+          <Property Name="SpecialRules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildWeapons" Relationship="Self.FK_BuildWeapon_Weapon" FromRole="Weapon" ToRole="BuildWeapons" />
+        </EntityType>
+        <Association Name="FK_Build_Sponsor">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="0..1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="Sponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Build_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="Vehicle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildWeapons_Build">
+          <End Role="Build" Type="Self.Build" Multiplicity="1" />
+          <End Role="BuildWeapons" Type="Self.BuildWeapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildWeapons">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildWeapon_Weapon">
+          <End Role="Weapon" Type="Self.Weapon" Multiplicity="1" />
+          <End Role="BuildWeapons" Type="Self.BuildWeapon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Weapon">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildWeapons">
+              <PropertyRef Name="WeaponKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Perks_PerkClass">
+          <End Role="PerkClass" Type="Self.PerkClass" Multiplicity="0..1" />
+          <End Role="Perks" Type="Self.Perk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PerkClass">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Perks">
+              <PropertyRef Name="Class" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Perks_Sponsor">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="0..1" />
+          <End Role="Perks" Type="Self.Perk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Perks">
+              <PropertyRef Name="Sponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BuildPerks">
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <End Role="Perks" Type="Self.Perk" Multiplicity="*" />
+        </Association>
+        <Association Name="SponsorPerkClass">
+          <End Role="PerkClass" Type="Self.PerkClass" Multiplicity="*" />
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GaslandsAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Builds" EntityType="Self.Build" />
+          <EntitySet Name="BuildWeapons" EntityType="Self.BuildWeapon" />
+          <EntitySet Name="PerkClasses" EntityType="Self.PerkClass" />
+          <EntitySet Name="Perks" EntityType="Self.Perk" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsor" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="Upgrades" EntityType="Self.Upgrade" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="Weapons" EntityType="Self.Weapon" />
+          <AssociationSet Name="FK_Build_Sponsor" Association="Self.FK_Build_Sponsor">
+            <End Role="Sponsor" EntitySet="Sponsors" />
+            <End Role="Build" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Build_Vehicle" Association="Self.FK_Build_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="Build" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildWeapons_Build" Association="Self.FK_BuildWeapons_Build">
+            <End Role="Build" EntitySet="Builds" />
+            <End Role="BuildWeapons" EntitySet="BuildWeapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildWeapon_Weapon" Association="Self.FK_BuildWeapon_Weapon">
+            <End Role="Weapon" EntitySet="Weapons" />
+            <End Role="BuildWeapons" EntitySet="BuildWeapons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Perks_PerkClass" Association="Self.FK_Perks_PerkClass">
+            <End Role="PerkClass" EntitySet="PerkClasses" />
+            <End Role="Perks" EntitySet="Perks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Perks_Sponsor" Association="Self.FK_Perks_Sponsor">
+            <End Role="Sponsor" EntitySet="Sponsors" />
+            <End Role="Perks" EntitySet="Perks" />
+          </AssociationSet>
+          <AssociationSet Name="BuildPerks" Association="Self.BuildPerks">
+            <End Role="Build" EntitySet="Builds" />
+            <End Role="Perks" EntitySet="Perks" />
+          </AssociationSet>
+          <AssociationSet Name="SponsorPerkClass" Association="Self.SponsorPerkClass">
+            <End Role="PerkClass" EntitySet="PerkClasses" />
+            <End Role="Sponsor" EntitySet="Sponsors" />
+          </AssociationSet>
+          <EntitySet Name="SpecialRules" EntityType="GaslandsAppModel.SpecialRule" />
+          <EntitySet Name="BuildUpgrades" EntityType="GaslandsAppModel.BuildUpgrade" />
+          <AssociationSet Name="FK_BuildUpgrades_Build" Association="GaslandsAppModel.FK_BuildUpgrades_Build">
+            <End Role="Build" EntitySet="Builds" />
+            <End Role="BuildUpgrade" EntitySet="BuildUpgrades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildUpgrades_Upgrade" Association="GaslandsAppModel.FK_BuildUpgrades_Upgrade">
+            <End Role="Upgrade" EntitySet="Upgrades" />
+            <End Role="BuildUpgrade" EntitySet="BuildUpgrades" />
+          </AssociationSet>
+          <EntitySet Name="TeamBuilds" EntityType="GaslandsAppModel.TeamBuild" />
+          <AssociationSet Name="FK_TeamBuilds_Build" Association="GaslandsAppModel.FK_TeamBuilds_Build">
+            <End Role="Build" EntitySet="Builds" />
+            <End Role="TeamBuild" EntitySet="TeamBuilds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamBuilds_Team" Association="GaslandsAppModel.FK_TeamBuilds_Team">
+            <End Role="Team" EntitySet="Teams" />
+            <End Role="TeamBuild" EntitySet="TeamBuilds" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="GaslandsAppModel.User" />
+          <AssociationSet Name="FK_Build_User" Association="GaslandsAppModel.FK_Build_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Build" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Team_User" Association="GaslandsAppModel.FK_Team_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="SpecialRule">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BuildUpgrade">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="BuildKey" Type="Int32" Nullable="false" />
+          <Property Name="UpgradeKey" Type="Int32" Nullable="false" />
+          <Property Name="Key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Build" Relationship="GaslandsAppModel.FK_BuildUpgrades_Build" FromRole="BuildUpgrade" ToRole="Build" />
+          <NavigationProperty Name="Upgrade" Relationship="GaslandsAppModel.FK_BuildUpgrades_Upgrade" FromRole="BuildUpgrade" ToRole="Upgrade" />
+        </EntityType>
+        <Association Name="FK_BuildUpgrades_Build">
+          <End Type="GaslandsAppModel.Build" Role="Build" Multiplicity="1" />
+          <End Type="GaslandsAppModel.BuildUpgrade" Role="BuildUpgrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildUpgrade">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildUpgrades_Upgrade">
+          <End Type="GaslandsAppModel.Upgrade" Role="Upgrade" Multiplicity="1" />
+          <End Type="GaslandsAppModel.BuildUpgrade" Role="BuildUpgrade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upgrade">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="BuildUpgrade">
+              <PropertyRef Name="UpgradeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TeamBuild">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="TeamKey" Type="Int32" Nullable="false" />
+          <Property Name="BuildKey" Type="Int32" Nullable="false" />
+          <Property Name="Key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Build" Relationship="GaslandsAppModel.FK_TeamBuilds_Build" FromRole="TeamBuild" ToRole="Build" />
+          <NavigationProperty Name="Team" Relationship="GaslandsAppModel.FK_TeamBuilds_Team" FromRole="TeamBuild" ToRole="Team" />
+        </EntityType>
+        <Association Name="FK_TeamBuilds_Build">
+          <End Type="GaslandsAppModel.Build" Role="Build" Multiplicity="1" />
+          <End Type="GaslandsAppModel.TeamBuild" Role="TeamBuild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Build">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TeamBuild">
+              <PropertyRef Name="BuildKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamBuilds_Team">
+          <End Type="GaslandsAppModel.Team" Role="Team" Multiplicity="1" />
+          <End Type="GaslandsAppModel.TeamBuild" Role="TeamBuild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TeamBuild">
+              <PropertyRef Name="TeamKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="GaslandsAppModel.FK_Build_User" FromRole="User" ToRole="Build" />
+          <NavigationProperty Name="Teams" Relationship="GaslandsAppModel.FK_Team_User" FromRole="User" ToRole="Team" />
+        </EntityType>
+        <Association Name="FK_Build_User">
+          <End Type="GaslandsAppModel.User" Role="User" Multiplicity="1" />
+          <End Type="GaslandsAppModel.Build" Role="Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Team_User">
+          <End Type="GaslandsAppModel.User" Role="User" Multiplicity="1" />
+          <End Type="GaslandsAppModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GaslandsAppModelStoreContainer" CdmEntityContainer="GaslandsAppEntities">
+          <EntitySetMapping Name="Builds">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Build">
+              <MappingFragment StoreEntitySet="Build">
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+                <ScalarProperty Name="Vehicle" ColumnName="Vehicle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildWeapons">
+            <EntityTypeMapping TypeName="GaslandsAppModel.BuildWeapon">
+              <MappingFragment StoreEntitySet="BuildWeapons">
+                <ScalarProperty Name="BuildKey" ColumnName="BuildKey" />
+                <ScalarProperty Name="WeaponKey" ColumnName="WeaponKey" />
+                <ScalarProperty Name="Facing" ColumnName="Facing" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerkClasses">
+            <EntityTypeMapping TypeName="GaslandsAppModel.PerkClass">
+              <MappingFragment StoreEntitySet="PerkClass">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perks">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Perk">
+              <MappingFragment StoreEntitySet="Perks">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="CanCost" ColumnName="CanCost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sponsors">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Sponsor">
+              <MappingFragment StoreEntitySet="Sponsor">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Upgrades">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Upgrade">
+              <MappingFragment StoreEntitySet="Upgrade">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CanCost" ColumnName="CanCost" />
+                <ScalarProperty Name="BuildSlotCost" ColumnName="BuildSlotCost" />
+                <ScalarProperty Name="HullEffect" ColumnName="HullEffect" />
+                <ScalarProperty Name="HandlingEffect" ColumnName="HandlingEffect" />
+                <ScalarProperty Name="MaxGearEffect" ColumnName="MaxGearEffect" />
+                <ScalarProperty Name="CrewEffect" ColumnName="CrewEffect" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WeightClass" ColumnName="WeightClass" />
+                <ScalarProperty Name="Hull" ColumnName="Hull" />
+                <ScalarProperty Name="Handling" ColumnName="Handling" />
+                <ScalarProperty Name="MaxGear" ColumnName="MaxGear" />
+                <ScalarProperty Name="Crew" ColumnName="Crew" />
+                <ScalarProperty Name="BuildSlots" ColumnName="BuildSlots" />
+                <ScalarProperty Name="CanCost" ColumnName="CanCost" />
+                <ScalarProperty Name="SpecialRules" ColumnName="SpecialRules" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weapons">
+            <EntityTypeMapping TypeName="GaslandsAppModel.Weapon">
+              <MappingFragment StoreEntitySet="Weapon">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CanCost" ColumnName="CanCost" />
+                <ScalarProperty Name="FacingAllowed" ColumnName="FacingAllowed" />
+                <ScalarProperty Name="BuildSlotCost" ColumnName="BuildSlotCost" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="Ammo" ColumnName="Ammo" />
+                <ScalarProperty Name="SpecialRules" ColumnName="SpecialRules" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BuildPerks" TypeName="GaslandsAppModel.BuildPerks" StoreEntitySet="BuildPerks">
+            <EndProperty Name="Build">
+              <ScalarProperty Name="Key" ColumnName="BuildKey" />
+            </EndProperty>
+            <EndProperty Name="Perks">
+              <ScalarProperty Name="Key" ColumnName="PerkKey" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SponsorPerkClass" TypeName="GaslandsAppModel.SponsorPerkClass" StoreEntitySet="SponsorPerkClass">
+            <EndProperty Name="PerkClass">
+              <ScalarProperty Name="Key" ColumnName="PerkClassKey" />
+            </EndProperty>
+            <EndProperty Name="Sponsor">
+              <ScalarProperty Name="Key" ColumnName="SponsorKey" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="SpecialRules">
+            <EntityTypeMapping TypeName="GaslandsAppModel.SpecialRule">
+              <MappingFragment StoreEntitySet="SpecialRules">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildUpgrades">
+            <EntityTypeMapping TypeName="GaslandsAppModel.BuildUpgrade">
+              <MappingFragment StoreEntitySet="BuildUpgrades">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="UpgradeKey" ColumnName="UpgradeKey" />
+                <ScalarProperty Name="BuildKey" ColumnName="BuildKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamBuilds">
+            <EntityTypeMapping TypeName="GaslandsAppModel.TeamBuild">
+              <MappingFragment StoreEntitySet="TeamBuilds">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="BuildKey" ColumnName="BuildKey" />
+                <ScalarProperty Name="TeamKey" ColumnName="TeamKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GaslandsAppModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

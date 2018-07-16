@@ -1,0 +1,43 @@
+﻿@model GaslandsTeamBuilder.Models.TeamViewModel
+
+@{
+    ViewBag.Title = "TeamPartial";
+}
+
+<div>
+    @Html.HiddenFor(model => model.team.Key, new { id = "teamKey" })
+
+
+    Name:
+    @Html.TextBoxFor(model => model.team.Name)<br />
+    Notes:
+    @Html.TextAreaFor(model => model.team.Notes)<br />
+    Sponsor:
+    @Html.DisplayFor(model => model.team.Sponsor)<br />
+    Total Cans:
+    @Html.DisplayFor(model => model.team.TotalCost)<br />
+
+    @Html.DropDownList("Builds", Model.BuildList, "--Select Build--", new { id = "buildSelector", onchange = "AddBuild()" })
+    @if (Model.team.TeamBuilds.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Sponsor</td>
+                    <td>Cans</td>
+                    <td>Remove</td>
+                </tr>
+            </thead>
+            @foreach (var build in Model.team.TeamBuilds)
+            {
+                <tr>
+                    <td>@build.Name</td>
+                    <td>@(build.Sponsor != null ? build.Sponsor.Name : "")</td>
+                    <td>@build.FinalCanCost</td>
+                    <td><button class="removePerk" type="button" onclick="RemoveBuild(@build.Key)">X</button></td>
+                </tr>
+            }
+        </table>
+    }
+</div>

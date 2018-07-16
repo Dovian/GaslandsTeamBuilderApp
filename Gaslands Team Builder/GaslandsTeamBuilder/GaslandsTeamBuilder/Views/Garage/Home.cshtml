@@ -1,0 +1,71 @@
+﻿@model GaslandsTeamBuilder.Models.GarageViewModel
+
+@{
+    ViewBag.Title = "Garage";
+}
+
+<h2>Garage</h2>
+
+Teams:
+@if (Model.Teams.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Sponsor</td>
+                <td>Builds</td>
+                <td>Cost</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        @foreach (var team in Model.Teams)
+        {
+            <tr>
+                <td>@team.Name</td>
+                <td>@team.Sponsor</td>
+                <td>
+                    @foreach (var build in team.TeamBuilds)
+                    {
+                        <div>@build.Name - @build.FinalCanCost</div>
+                    }
+                </td>
+                <td>@team.TotalCost</td>
+                <td>@Html.ActionLink("Edit", "Team", "Garage", new { key = team.Key }, null)</td>
+                <td>@Html.ActionLink("Delete", "DeleteTeam", "Garage", new { key = team.Key }, null)</td>
+            </tr>
+        }
+    </table>
+}
+<br />
+@Html.ActionLink("Add Team", "Team", "Garage", null, null)<br />
+<br />
+
+Builds:
+@if (Model.Builds.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Vehicle</td>
+                <td>Cost</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        @foreach (var build in Model.Builds)
+        {
+            <tr>
+                <td>@build.Name</td>
+                <td>@(build.Vehicle != null ? build.Vehicle.Name : "---")</td>
+                <td>@build.FinalCanCost</td>
+                <td>@Html.ActionLink("Edit", "Build", "Garage", new { key = build.Key }, null)</td>
+                <td>@Html.ActionLink("Delete", "DeleteBuild", "Garage", new { key = build.Key }, null)</td>
+            </tr>
+        }
+    </table>
+}
+<br />
+@Html.ActionLink("Add Build", "Build", "Garage", null, null)

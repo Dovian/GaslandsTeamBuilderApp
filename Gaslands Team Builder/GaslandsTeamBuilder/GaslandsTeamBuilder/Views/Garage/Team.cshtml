@@ -1,0 +1,63 @@
+﻿@model GaslandsTeamBuilder.Models.TeamViewModel
+
+@{
+    ViewBag.Title = "Team";
+}
+
+<h2>Team</h2>
+
+<form id="TeamForm">
+    @Html.Partial("TeamPartial", Model)
+</form>
+
+<button id="saveButton" type="button" onclick="SaveTeam()">Save Team</button>
+
+<br />
+@Html.ActionLink("Back to Garage", "Index", "Garage", null, null)
+
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $(document.body).css({ 'cursor': 'wait' })
+    });
+    $(document).ajaxComplete(function () {
+        $(document.body).css({ 'cursor': 'default' })
+    });
+
+    function SaveTeam() {
+        $.ajax({
+            url: "SaveTeam",
+            data: $("#TeamForm").serialize(),
+            type: "POST",
+            success: function (result) {
+                $("#TeamForm").html(result);
+            }
+        });
+    }
+
+    function AddBuild() {
+        build = $("#buildSelector").val();
+        team = $("#teamKey").val();
+
+        $.ajax({
+            url: "AddBuildToTeam",
+            data: { teamKey: team, buildKey: build },
+            type: "POST",
+            success: function (result) {
+                $("#TeamForm").html(result);
+            }
+        });
+    };
+    function RemoveBuild(key) {
+        team = $("#teamKey").val();
+        teamBuild = key;
+
+        $.ajax({
+            url: "RemoveBuildFromTeam",
+            data: { teamKey: team, teamBuildKey: teamBuild },
+            type: "POST",
+            success: function (result) {
+                $("#TeamForm").html(result);
+            }
+        });
+    }
+</script>

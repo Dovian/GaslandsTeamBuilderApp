@@ -1,0 +1,131 @@
+﻿@model GaslandsTeamBuilder.Models.BuildViewModel
+
+@{
+    ViewBag.Title = "Build";
+}
+
+<h2>Build</h2>
+
+<form id="BuildForm">
+    @Html.Partial("BuildPartial", Model)
+</form>
+
+<button id="saveButton" type="button" onclick="SaveBuild()">Save Build</button>
+
+<br />
+@Html.ActionLink("Back to Garage", "Index", "Garage", null, null)
+
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $(document.body).css({ 'cursor': 'wait' })
+    });
+    $(document).ajaxComplete(function () {
+        $(document.body).css({ 'cursor': 'default' })
+    });
+
+    function SaveBuild() {
+        $.ajax({
+            url: "SaveBuild",
+            data: $("#BuildForm").serialize(),
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    };
+
+    function AddPerk() {
+        perk = $("#perkSelector").val();
+        build = $("#buildKey").val();
+
+        $.ajax({
+            url: "AddPerk",
+            data: { buildKey: build, perkKey: perk },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    };
+    function RemovePerk(key) {
+        build = $("#buildKey").val();
+        perk = key;
+
+        $.ajax({
+            url: "RemovePerk",
+            data: { buildKey: build, perkKey: perk },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    }
+
+    function AddUpgrade() {
+        upgrade = $("#upgradeSelector").val();
+        build = $("#buildKey").val();
+
+        $.ajax({
+            url: "AddUpgrade",
+            data: { buildKey: build, upgradeKey: upgrade },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    };
+
+    function RemoveUpgrade(key) {
+        upgrade = key;
+        build = $("#buildKey").val();
+
+        $.ajax({
+            url: "RemoveUpgrade",
+            data: { buildKey: build, upgradeKey: upgrade },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    };
+
+    function ShowFacing() {
+        weapon = $("#weaponSelector").val();
+        $(".facings").each(function () {
+            $(this).attr("hidden", "hidden");
+            $(this).attr("disabled", "disabled");
+        });
+        $("#addWeaponButton").removeAttr("hidden");
+        $("#facing_" + weapon).removeAttr("hidden");
+        $("#facing_" + weapon).removeAttr("disabled");
+    }
+    
+    function AddWeapon() {
+        weapon = $("#weaponSelector").val();
+        facing = $("#facing_" + weapon).val();
+        build = $("#buildKey").val();
+
+        $.ajax({
+            url: "AddWeapon",
+            data: { buildKey: build, weaponKey: weapon, facing: facing },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    };
+
+    function RemoveWeapon(key) {
+        build = $("#buildKey").val();
+        buildWeapon = key;
+
+        $.ajax({
+            url: "RemoveWeapon",
+            data: { buildKey: build, buildWeaponKey: buildWeapon },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    }
+</script>

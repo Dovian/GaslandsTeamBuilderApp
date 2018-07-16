@@ -1,0 +1,63 @@
+﻿@model GaslandsTeamBuilder.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "CreateUser";
+}
+
+<h2>CreateUser</h2>
+
+<form id="CreateUserForm">
+    <div class="login_label">User:</div>
+    @Html.EditorFor(model => model.Username)<br />
+    <div class="login_label">Password:</div>
+    @Html.PasswordFor(model => model.Password, new { id = "passwordBox" })<br />
+    <div class="login_label">Confirm Password:</div>
+    @Html.PasswordFor(model => model.PasswordCheck, new { id = "confirmPasswordBox" })<br />
+
+    <div id="createErrors" class="error"></div>
+    <div id="passwordMismatch" hidden="hidden" class="error">The passwords don't match</div>
+</form>
+
+<br />
+<button id="CreateUser" type="submit" onclick="TryCreate()">Create User</button>
+
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $(document.body).css({ 'cursor': 'wait' })
+    });
+    $(document).ajaxComplete(function () {
+        $(document.body).css({ 'cursor': 'default' })
+    });
+
+    $(document).ready(function () {
+        $("form input").keypress(function (e) {
+            if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                $('#CreateUser').click();
+                return true;
+            }
+        });
+    });
+
+    function TryCreate() {
+        if ($("#passwordBox").val() != $("#confirmPasswordBox").val()) {
+            $("#passwordMismatch").removeAttr("hidden");
+        }
+        else {
+            $("#CreateUserForm").addClass("disabled");
+            $.ajax({
+                url: "/Account/CreateUser",
+                data: $("#CreateUserForm").serialize(),
+                type: "POST",
+                success: function (result) {
+                    if (result == "success") {
+                        window.location.href = "/Garage/";
+                    }
+                    else {
+                        $("#CreateUserForm").removeClass("disabled");
+                        $("#createErrors").html(result);
+                    }
+                }
+            });
+        }
+    }
+</script>
