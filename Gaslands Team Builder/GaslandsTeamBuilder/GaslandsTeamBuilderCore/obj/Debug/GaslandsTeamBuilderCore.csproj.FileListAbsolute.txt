@@ -15,3 +15,20 @@ D:\Random Programs\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilder
 D:\Random Programs\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.pdb
 D:\Random Programs\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\BCrypt.Net-Next.dll
 D:\Random Programs\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderCore.dll.config
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderCore.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderCore.pdb
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\EntityFramework.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderDataRepo.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderDataRepo.pdb
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\GaslandsTeamBuilderDataRepo.dll.config
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\EntityFramework.xml
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.csprojAssemblyReference.cache
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.csproj.CoreCompileInputs.cache
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.csproj.CopyComplete
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.dll
+C:\Users\Daniel\Documents\GitHub\GaslandsTeamBuilderApp\Gaslands Team Builder\GaslandsTeamBuilder\GaslandsTeamBuilderCore\obj\Debug\GaslandsTeamBuilderCore.pdb
