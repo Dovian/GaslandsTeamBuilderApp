@@ -28,5 +28,9 @@ textarea {
 }
 
 .login_label {
-    width: 100px;
+    width: 150px;
+}
+
+.ruleName {
+    font-weight: 700;
 }

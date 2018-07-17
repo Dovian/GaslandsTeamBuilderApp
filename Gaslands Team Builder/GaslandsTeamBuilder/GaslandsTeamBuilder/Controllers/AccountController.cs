@@ -13,16 +13,21 @@ namespace GaslandsTeamBuilder.Controllers
             _coreLogic = coreLogic;
         }
 
+        public ActionResult Index()
+        {
+            if (!string.IsNullOrEmpty(_AppUserState.Username))
+            {
+                return RedirectToAction("Index", "Garage");
+            }
+
+            return View("Login", new LoginViewModel());
+        }
+
         public ActionResult SignOut()
         {
             IdentitySignout();
 
             return RedirectToAction("Index", "Account");
-        }
-
-        public ActionResult Index()
-        {
-            return View("Login", new LoginViewModel());
         }
 
         public string CreateUser(LoginViewModel model)

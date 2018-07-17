@@ -21,6 +21,9 @@
 <br />
 <button id="CreateUser" type="submit" onclick="TryCreate()">Create User</button>
 
+<br />
+@Html.ActionLink("Back to Login", "Index", "Account", null, null)
+
 <script type="text/javascript">
     $(document).ajaxStart(function () {
         $(document.body).css({ 'cursor': 'wait' })
