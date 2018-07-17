@@ -5,7 +5,7 @@ namespace GaslandsTeamBuilderDataRepo
 {
     public interface IDBReader
     {
-        int Login(string username, string password);
+        string Login(string username, string password);
         Build GetBuild(int key, int userId);
         Team GetTeam(int key, int userId);
         List<Build> GetAllBuilds(int userId);

@@ -64,20 +64,25 @@ namespace GaslandsTeamBuilder.Controllers
         {
             var result = "success";
             var userId = _coreLogic.Login(model.Username, model.Password);
+            int tryInt;
 
-            if (userId == -1)
+            if (userId == "-1")
             {
                 result = "Could not login with that username or password.";
             }
-            else
+            else if (int.TryParse(userId, out tryInt))
             {
                 AppUserState appUserState = new AppUserState()
                 {
-                    UserId = userId,
+                    UserId = tryInt,
                     Username = model.Username
                 };
 
                 IdentitySignin(appUserState);
+            }
+            else
+            {
+                return userId;
             }
 
             return result;

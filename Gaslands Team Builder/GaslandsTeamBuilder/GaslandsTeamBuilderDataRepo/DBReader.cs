@@ -8,25 +8,33 @@ namespace GaslandsTeamBuilderDataRepo
     {
         GaslandsAppEntities _db = new GaslandsAppEntities();
 
-        public int Login(string username, string password)
+        public string Login(string username, string password)
         {
-            var user = _db.Users.SingleOrDefault(u => u.Username == username);
+            try
+            {
+                var user = _db.Users.SingleOrDefault(u => u.Username == username);
 
-            if (user != null) {
-                var login = BCrypt.Net.BCrypt.Verify(password, user.Password);
-
-                if (login)
+                if (user != null)
                 {
-                    return user.Key;
+                    var login = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+                    if (login)
+                    {
+                        return user.Key.ToString();
+                    }
+                    else
+                    {
+                        return "-1";
+                    }
                 }
                 else
                 {
-                    return -1;
+                    return "-1";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return -1;
+                return ex.ToString();
             }
         }
 

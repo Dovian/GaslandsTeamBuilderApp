@@ -6,7 +6,7 @@ namespace GaslandsTeamBuilderCore
     public interface ICoreLogic
     {
         int CreateUser(string username, string password);
-        int Login(string username, string password);
+        string Login(string username, string password);
         int CopyBuild(Build build, int userId);
         int CreateBuild(int userId);
         int CreateTeam(int userId);
