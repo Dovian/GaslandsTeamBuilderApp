@@ -168,6 +168,8 @@ namespace GaslandsTeamBuilderDataRepo
             var dbBuild = _db.Builds.Include("Perks").SingleOrDefault(b => b.Key == updatedBuild.Key && b.User == userId);
             if (dbBuild != null)
             {
+                var oldSponsor = dbBuild.Sponsor;
+                var newSponsor = updatedBuild.Sponsor;
 
                 dbBuild.Driver = updatedBuild.Driver;
                 dbBuild.Name = updatedBuild.Name;
@@ -186,6 +188,21 @@ namespace GaslandsTeamBuilderDataRepo
                     dbBuild.Perks.Clear();
                     foreach (Perk newPerk in newPerks)
                         dbBuild.Perks.Add(newPerk);
+                }
+                //Update Sponsor Perks
+                if(oldSponsor != newSponsor)
+                {
+                    foreach(Perk oldPerk in dbBuild.Perks.Where(p => p.Sponsor == oldSponsor))
+                    {
+                        dbBuild.Perks.Remove(oldPerk);
+                    }
+
+                    var newPerkList = _db.Perks.Where(p => p.Sponsor == newSponsor);
+
+                    foreach(Perk newPerk in newPerkList.ToList())
+                    {
+                        dbBuild.Perks.Add(newPerk);
+                    }
                 }
 
                 _db.SaveChanges();
