@@ -28,6 +28,7 @@ namespace GaslandsTeamBuilderDataRepo
         public string Range { get; set; }
         public Nullable<int> Ammo { get; set; }
         public string SpecialRules { get; set; }
+        public string Attack { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildWeapon> BuildWeapons { get; set; }
