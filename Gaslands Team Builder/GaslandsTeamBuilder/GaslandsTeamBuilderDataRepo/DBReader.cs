@@ -8,33 +8,26 @@ namespace GaslandsTeamBuilderDataRepo
     {
         GaslandsAppEntities _db = new GaslandsAppEntities();
 
-        public string Login(string username, string password)
+        public int Login(string username, string password)
         {
-            try
+            var user = _db.Users.SingleOrDefault(u => u.Username == username);
+
+            if (user != null)
             {
-                var user = _db.Users.SingleOrDefault(u => u.Username == username);
+                var login = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
-                if (user != null)
+                if (login)
                 {
-                    var login = BCrypt.Net.BCrypt.Verify(password, user.Password);
-
-                    if (login)
-                    {
-                        return user.Key.ToString();
-                    }
-                    else
-                    {
-                        return "-1";
-                    }
+                    return user.Key;
                 }
                 else
                 {
-                    return "-1";
+                    return -1;
                 }
             }
-            catch(Exception ex)
+            else
             {
-                return ex.ToString();
+                return -1;
             }
         }
 
@@ -63,7 +56,8 @@ namespace GaslandsTeamBuilderDataRepo
             var perks = new List<Perk>();
             var perkClasses = _db.Sponsors.Single(s => s.Name == sponsor).PerkClasses.Select(pc => pc.Name).ToList();
 
-            foreach (string perkClass in perkClasses) {
+            foreach (string perkClass in perkClasses)
+            {
                 var dbPerks = _db.Perks.Where(p => p.PerkClass.Name.Contains(perkClass)).ToList();
                 perks.AddRange(dbPerks);
             }
@@ -90,7 +84,7 @@ namespace GaslandsTeamBuilderDataRepo
 
         public List<Vehicle> GetVehicles()
         {
-             return _db.Vehicles.ToList();
+            return _db.Vehicles.ToList();
         }
 
         public List<Weapon> GetWeapons()
