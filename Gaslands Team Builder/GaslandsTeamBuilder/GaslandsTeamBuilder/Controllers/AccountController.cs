@@ -13,16 +13,21 @@ namespace GaslandsTeamBuilder.Controllers
             _coreLogic = coreLogic;
         }
 
+        public ActionResult Index()
+        {
+            if (!string.IsNullOrEmpty(_AppUserState.Username))
+            {
+                return RedirectToAction("Index", "Garage");
+            }
+
+            return View("Login", new LoginViewModel());
+        }
+
         public ActionResult SignOut()
         {
             IdentitySignout();
 
             return RedirectToAction("Index", "Account");
-        }
-
-        public ActionResult Index()
-        {
-            return View("Login", new LoginViewModel());
         }
 
         public string CreateUser(LoginViewModel model)
@@ -64,25 +69,20 @@ namespace GaslandsTeamBuilder.Controllers
         {
             var result = "success";
             var userId = _coreLogic.Login(model.Username, model.Password);
-            int tryInt;
 
-            if (userId == "-1")
+            if (userId == -1)
             {
                 result = "Could not login with that username or password.";
             }
-            else if (int.TryParse(userId, out tryInt))
+            else
             {
                 AppUserState appUserState = new AppUserState()
                 {
-                    UserId = tryInt,
+                    UserId = userId,
                     Username = model.Username
                 };
 
                 IdentitySignin(appUserState);
-            }
-            else
-            {
-                return userId;
             }
 
             return result;

@@ -95,6 +95,7 @@
                     <td>Name</td>
                     <td>Cans</td>
                     <td>Slots</td>
+                    <td>Attack</td>
                     <td>Ammo</td>
                     <td>Facing</td>
                     <td>Effect</td>
@@ -106,6 +107,7 @@
                     <td>@weapon.Name</td>
                     <td>@weapon.CanCost</td>
                     <td>@weapon.BuildSlotCost</td>
+                    <td>@weapon.Attack</td>
                     <td>@weapon.Ammo</td>
                     <td>@weapon.Facing</td>
                     <td>@weapon.SpecialRules</td>
@@ -126,7 +128,7 @@
         {
             foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Vehicle"))
             {
-                <div>@(rule.Name): @(rule.Description)</div>
+                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
             }
         }
         <h3>Weapon Rules:</h3>
@@ -138,7 +140,7 @@
         {
             foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Weapon"))
             {
-                <div>@(rule.Name): @(rule.Description)</div>
+                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
             }
         }
     }

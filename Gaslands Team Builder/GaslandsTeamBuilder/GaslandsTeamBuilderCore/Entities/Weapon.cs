@@ -12,6 +12,7 @@ namespace GaslandsTeamBuilderCore.Entities
         public int? Ammo { get; set; }
         public string SpecialRules { get; set; }
         public List<string> FacingAllowed { get; set; }
+        public string Attack { get; set; }
 
         public string ListDisplay
         {

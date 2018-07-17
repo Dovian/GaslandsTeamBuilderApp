@@ -11,6 +11,10 @@
 
 </head>
 <body>
+    @if (ViewData["UserState"].ToString() != "|0")
+    {
+        <div class="header">@Html.ActionLink("Sign Out", "SignOut", "Account", null, null)</div>
+    }
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -26,7 +26,7 @@ namespace GaslandsTeamBuilderCore
             return _dBWriter.CreateUser(username, password);
         }
 
-        public string Login(string username, string password)
+        public int Login(string username, string password)
         {
             return _dBReader.Login(username, password);
         }

@@ -148,6 +148,7 @@
           <Property Name="Range" Type="text" />
           <Property Name="Ammo" Type="int4" />
           <Property Name="SpecialRules" Type="text" />
+          <Property Name="Attack" Type="text" />
         </EntityType>
         <Association Name="BuildPerks_BuildKey_fkey">
           <End Role="Build" Type="Self.Build" Multiplicity="1" />
@@ -543,6 +544,7 @@
           <Property Name="Ammo" Type="Int32" />
           <Property Name="SpecialRules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BuildWeapons" Relationship="Self.FK_BuildWeapon_Weapon" FromRole="Weapon" ToRole="BuildWeapons" />
+          <Property Name="Attack" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Build_Sponsor">
           <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="0..1" />
@@ -905,6 +907,7 @@
           <EntitySetMapping Name="Weapons">
             <EntityTypeMapping TypeName="GaslandsAppModel.Weapon">
               <MappingFragment StoreEntitySet="Weapon">
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CanCost" ColumnName="CanCost" />
