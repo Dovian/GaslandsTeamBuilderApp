@@ -1,0 +1,27 @@
+﻿@model GaslandsTeamBuilder.Models.BuildViewModel
+
+
+<table id="dashboard" class="displayTable">
+    <thead>
+        <tr>
+            <td>Build Slots</td>
+            <td>Can Cost</td>
+            <td>Crew</td>
+            <td>Handling</td>
+            <td>Hull</td>
+            <td>Max Gear</td>
+            <td>Weight Class</td>
+        </tr>
+    </thead>
+    <tr>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalBuildSlots)</td>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalCanCost)</td>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalCrew)</td>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalHandling)</td>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalHull)</td>
+        <td class="number">@Html.DisplayFor(model => model.build.FinalMaxGear)</td>
+        <td>@Html.DisplayFor(model => model.build.FinalWeightClass)</td>
+    </tr>
+</table>
+
+@Html.DisplayFor(model => model.build.Vehicle)

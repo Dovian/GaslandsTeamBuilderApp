@@ -88,13 +88,13 @@
                     <td>@upgrade.Name</td>
                     <td class="number">@upgrade.CanCost</td>
                     <td class="number">@upgrade.BuildSlotCost</td>
-                    <td>???</td>
+                    <td>@upgrade.EffectDisplay</td>
                     <td><button class="removeUpgrade" type="button" onclick="RemoveUpgrade(@upgrade.BuildUpgradeKey)">X</button></td>
                 </tr>
             }
         </table>
     }
-    @Html.DropDownList("Weapons", new SelectList(Model.WeaponDropDown, "WeaponKey", "ListDisplay"), "--Select Weapon(Cost, Slots)--", new { id = "weaponSelector", @onchange = "ShowFacing()" })
+    @Html.DropDownList("Weapons", new SelectList(Model.WeaponDropDown, "WeaponKey", "ListDisplay"), "--Select Weapon(Cans, Slots)--", new { id = "weaponSelector", @onchange = "ShowFacing()" })
     @foreach (var weapon in Model.WeaponDropDown)
     {
         @Html.DropDownList("Facing", new SelectList(weapon.FacingAllowed.Select(f => new { Value = f, Text = f }), "Value", "Text"), "--Select Facing--", new { id = "facing_" + weapon.WeaponKey, @class = "facings", hidden = "hidden" })

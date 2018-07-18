@@ -11,6 +11,20 @@
         public int MaxGearEffect { get; set; }
         public int CrewEffect { get; set; }
 
+        public string EffectDisplay
+        {
+            get
+            {
+                string effect = "";
+                if (HullEffect != 0) { effect += (" Hull: " + (HullEffect > 0 ? "+" + HullEffect.ToString() : HullEffect.ToString())); }
+                if (HandlingEffect != 0) { effect += (" Handling: " + (HandlingEffect > 0 ? "+" + HandlingEffect.ToString() : HandlingEffect.ToString())); }
+                if (MaxGearEffect != 0) { effect += (" Max Gear: " + (MaxGearEffect > 0 ? "+" + MaxGearEffect.ToString() : MaxGearEffect.ToString())); }
+                if (CrewEffect != 0) { effect += (" Crew: " + (CrewEffect > 0 ? "+" + CrewEffect.ToString() : CrewEffect.ToString())); }
+
+                return effect;
+            }
+        }
+
         public string ListDisplay
         {
             get
