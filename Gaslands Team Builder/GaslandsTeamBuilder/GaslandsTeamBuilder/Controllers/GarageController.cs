@@ -68,6 +68,18 @@ namespace GaslandsTeamBuilder.Controllers
         }
 
         #region AjaxCalls
+        public ActionResult ValidateBuild(int buildKey)
+        {
+            var validatedBuild = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);
+            var dropdowns = _coreLogic.GetDropDowns(validatedBuild);
+
+            BuildViewModel model = new BuildViewModel(validatedBuild, dropdowns);
+            model.BuildErrors = _coreLogic.ValidateBuild(model.build, _AppUserState.UserId);
+            model.SpecialRules = _coreLogic.GetSpecialRules(model.build);
+
+            return PartialView("BuildPartial", model);
+        }
+
         public ActionResult SaveTeam(TeamViewModel dto)
         {
             var updatedTeam = _coreLogic.UpdateTeam(dto.team, _AppUserState.UserId);
