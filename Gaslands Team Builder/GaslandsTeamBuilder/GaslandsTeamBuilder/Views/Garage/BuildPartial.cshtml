@@ -55,7 +55,6 @@
                     <td>Name</td>
                     <td>Cans</td>
                     <td>Effect</td>
-                    <td></td>
                 </tr>
             </thead>
             @foreach (var perk in Model.build.Perks)
@@ -64,7 +63,7 @@
                     <td>@perk.Name</td>
                     <td class="number">@perk.CanCost</td>
                     <td>@perk.Description</td>
-                    <td>@if(perk.CanCost > 0){<button class="removePerk" type="button" onclick="RemovePerk(@perk.Key)">X</button>}</td>
+                    @if (perk.CanCost > 0){<td><button class="removePerk" type="button" onclick="RemovePerk(@perk.Key)">X</button></td>}
                 </tr>
             }
         </table>
@@ -79,7 +78,6 @@
                     <td>Cans</td>
                     <td>Slots</td>
                     <td>Effect</td>
-                    <td></td>
                 </tr>
             </thead>
             @foreach (var upgrade in Model.build.Upgrades)
@@ -112,7 +110,6 @@
                     <td>Ammo</td>
                     <td>Facing</td>
                     <td>Effect</td>
-                    <td></td>
                 </tr>
             </thead>
             @foreach (var weapon in Model.build.Weapons)

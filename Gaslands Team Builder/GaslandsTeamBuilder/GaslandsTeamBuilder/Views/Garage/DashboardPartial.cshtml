@@ -4,8 +4,6 @@
 <table id="dashboard" class="displayTable">
     <thead>
         <tr>
-            <td>Build Slots</td>
-            <td>Can Cost</td>
             <td>Crew</td>
             <td>Handling</td>
             <td>Hull</td>
@@ -14,8 +12,6 @@
         </tr>
     </thead>
     <tr>
-        <td class="number">@Html.DisplayFor(model => model.build.FinalBuildSlots)</td>
-        <td class="number">@Html.DisplayFor(model => model.build.FinalCanCost)</td>
         <td class="number">@Html.DisplayFor(model => model.build.FinalCrew)</td>
         <td class="number">@Html.DisplayFor(model => model.build.FinalHandling)</td>
         <td class="number">@Html.DisplayFor(model => model.build.FinalHull)</td>
@@ -25,3 +21,90 @@
 </table>
 
 @Html.DisplayFor(model => model.build.Vehicle)
+@if (Model.build.Perks.Count > 0)
+{
+    <table class="displayTable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Effect</td>
+            </tr>
+        </thead>
+        @foreach (var perk in Model.build.Perks)
+        {
+            <tr>
+                <td>@perk.Name</td>
+                <td>@perk.Description</td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.build.Upgrades.Count > 0)
+{
+    <table class="displayTable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Effect</td>
+            </tr>
+        </thead>
+        @foreach (var upgrade in Model.build.Upgrades)
+        {
+            <tr>
+                <td>@upgrade.Name</td>
+                <td>@upgrade.EffectDisplay</td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.build.Weapons.Count > 0)
+{
+    <table class="displayTable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Attack</td>
+                <td>Ammo</td>
+                <td>Facing</td>
+                <td>Effect</td>
+            </tr>
+        </thead>
+        @foreach (var weapon in Model.build.Weapons)
+        {
+            <tr>
+                <td>@weapon.Name</td>
+                <td class="number">@weapon.Attack</td>
+                <td class="number">@weapon.Ammo</td>
+                <td>@weapon.Facing</td>
+                <td>@weapon.SpecialRules</td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.SpecialRules != null && Model.SpecialRules.Count > 0)
+{
+    <h3>Vehicle Rules:</h3>
+    if (Model.SpecialRules.Where(sr => sr.Category == "Vehicle").Count() == 0)
+    {
+        <div>None</div>
+    }
+    else
+    {
+        foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Vehicle"))
+        {
+            <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+        }
+    }
+    <h3>Weapon Rules:</h3>
+    if (Model.SpecialRules.Where(sr => sr.Category == "Weapon").Count() == 0)
+    {
+        <div>None</div>
+    }
+    else
+    {
+        foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Weapon"))
+        {
+            <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+        }
+    }
+}
