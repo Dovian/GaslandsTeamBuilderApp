@@ -10,6 +10,7 @@
     @Html.Partial("BuildPartial", Model)
 </form>
 
+<button id="validateButton" type="button" onclick="ValidateBuild()">Validate Build</button>
 <button id="saveButton" type="button" onclick="SaveBuild()">Save Build</button>
 
 <br />
@@ -22,6 +23,18 @@
     $(document).ajaxComplete(function () {
         $(document.body).css({ 'cursor': 'default' })
     });
+
+    function ValidateBuild() {
+        build = $("#buildKey").val();
+        $.ajax({
+            url: "ValidateBuild",
+            data: { buildKey: build },
+            type: "POST",
+            success: function (result) {
+                $("#BuildForm").html(result);
+            }
+        });
+    }
 
     function SaveBuild() {
         $.ajax({

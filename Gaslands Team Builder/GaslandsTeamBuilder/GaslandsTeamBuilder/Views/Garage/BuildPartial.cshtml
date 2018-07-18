@@ -1,8 +1,17 @@
 ﻿@model GaslandsTeamBuilder.Models.BuildViewModel
 
 <div>
+    @if(Model.BuildErrors.Count > 0)
+    {
+        <h3>Errors</h3>
+        foreach(string error in Model.BuildErrors)
+        {
+            <div class="error">@error</div>
+        }
+    }
     @Html.HiddenFor(model => model.build.Key, new { id = "buildKey" })
 
+    <br />
     <div id="dashboard">
         Build Slots:
         @Html.DisplayFor(model => model.build.FinalBuildSlots)<br />

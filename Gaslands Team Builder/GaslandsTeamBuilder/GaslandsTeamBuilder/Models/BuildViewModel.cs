@@ -11,6 +11,7 @@ namespace GaslandsTeamBuilder.Models
         public BuildViewModel(Build _build, DropDownContainer _dropdowns)
         {
             build = _build;
+            BuildErrors = new List<string>();
             PerkDropDown = new SelectList(_dropdowns.PerkDropDown, "Key", "ListDisplay");
             SponsorDropDown = new SelectList(_dropdowns.SponsorDropDown, "Key", "Name");
             UpgradeDropDown = new SelectList(_dropdowns.UpgradeDropDown, "UpgradeKey", "ListDisplay");

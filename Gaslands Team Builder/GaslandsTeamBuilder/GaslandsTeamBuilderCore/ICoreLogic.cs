@@ -28,7 +28,7 @@ namespace GaslandsTeamBuilderCore
         List<SpecialRule> GetSpecialRules(Build build);
         List<Build> GetAllBuilds(int userId);
         List<Team> GetAllTeams(int userId);
-        List<string> ValidateBuild(Build build);
-        List<string> ValidateTeam(Team team);
+        List<string> ValidateBuild(Build build, int userId);
+        List<string> ValidateTeam(Team team, int userId);
     }
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GaslandsTeamBuilderDataRepo;
-using GaslandsTeamBuilderCore;
-using GaslandsTeamBuilderCore.Entities;
 using System.Web;
 
 namespace GaslandsTeamBuilderCore
@@ -153,13 +151,84 @@ namespace GaslandsTeamBuilderCore
             return _converter.ConvertToCoreTeam(_dBWriter.UpdateTeam(_converter.ConvertToDBTeam(team), userId));
         }
 
-        public List<string> ValidateBuild(Entities.Build build)
+        public List<string> ValidateBuild(Entities.Build build, int userId)
         {
-            throw new NotImplementedException();
+            List<string> errors = new List<string>();
+            var dbBuild = _dBReader.GetBuild(build.Key, userId);
+            var buildSponsor = dbBuild.Sponsor.HasValue ? dbBuild.Sponsor1.Name : null;
+            var hasVehicle = dbBuild.Vehicle.HasValue;
+            var hasWeapon = dbBuild.BuildWeapons.Count > 0;
+            var hasUpgrades = dbBuild.BuildUpgrades.Count > 0;
+
+            //Check Perks against Sponsor
+            if (buildSponsor != null)
+            {
+                foreach (Perk perk in dbBuild.Perks)
+                {
+                    if (perk.PerkClass != null && !dbBuild.Sponsor1.PerkClasses.Contains(perk.PerkClass))
+                    {
+                        errors.Add(perk.Name + ": " + dbBuild.Sponsor1.Name + " does not support this perk.");
+                    }
+                }
+            }
+            //Sponsor specific vehicle/weightclass/weapon requirements (Rutherford, Miyazaki, Idris)
+            if (buildSponsor == "Rutherford" && hasVehicle && dbBuild.Vehicle1.WeightClass == "Lightweight")
+            {
+                errors.Add("Rutherford cannot purchase lightweight vehicle: " + dbBuild.Vehicle1.Name);
+            }
+            else if (buildSponsor == "Miyazaki" && hasVehicle)
+            {
+                var limit = new string[] { "Truck", "Bus", "War Rig" };
+                if (limit.Contains(dbBuild.Vehicle1.Name))
+                {
+                    errors.Add("Miyazaki cannot purchase: " + dbBuild.Vehicle1.Name);
+                }
+            }
+            else if (buildSponsor == "Idris" && hasVehicle && dbBuild.Vehicle1.Name == "Gyrocopter")
+            {
+                errors.Add("Idris cannot purchase a Gyrocopter");
+            }
+            //Negative cases (Helicopter/Tank && !Rutherford, Electrical && !Mishkin, Prison Car && !Warden
+            if (hasVehicle && (new string[] { "Helicopter", "Tank" }).Contains(dbBuild.Vehicle1.Name) && buildSponsor != "Rutherford")
+            {
+                errors.Add("Only Rutherford may purchase vehicle: " + dbBuild.Vehicle1.Name);
+            }
+            if (hasWeapon && dbBuild.BuildWeapons.Select(bw => bw.Weapon).Where(w => w.SpecialRules.Contains("Electrical")).Count() > 0
+                && buildSponsor != "Mishkin")
+            {
+                errors.Add("Only Mishkin may purchase weapons with the \"Electrical\" Special Rule");
+            }
+            if (hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Prison Car").Count() > 0 && hasVehicle
+                && (buildSponsor != "Warden Cadeila" || dbBuild.Vehicle1.WeightClass != "Middleweight"))
+            {
+                errors.Add("Only Warden Cadeila may purchase the \"Prison Car\" Upgrade and only on Middleweight vehicles");
+            }
+            //Upgrade limit checks(Extra Crew, Tank Tracks)
+            if(hasUpgrades && hasVehicle 
+                && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Extra Crewmember").Count() > dbBuild.Vehicle1.Crew)
+            {
+                errors.Add("You may not have more than double a vehicle's crew with the \"Extra Crewmember\" upgrade");
+            }
+            if(hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 1)
+            {
+                errors.Add("You may not have more than one \"Tank Tracks\" upgrade");
+            }
+            //Perk specific limitations(Stunt Driver)
+            if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null && dbBuild.Vehicle.HasValue)
+            {
+                var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
+                if (!limit.Contains(dbBuild.Vehicle1.Name))
+                {
+                    errors.Add("Stunt Driver cannot be taken on a " + dbBuild.Vehicle1.Name);
+                }
+            }
+            return errors;
         }
 
-        public List<string> ValidateTeam(Entities.Team team)
+        public List<string> ValidateTeam(Entities.Team team, int userId)
         {
+            //Have builds individually run ValidateBuild() and then highlight if any issues exist
+            //Rutherford needs to check that Tank/Heli is only one-of
             throw new NotImplementedException();
         }
 

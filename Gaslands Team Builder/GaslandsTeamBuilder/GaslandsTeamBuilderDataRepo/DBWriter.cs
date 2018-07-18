@@ -192,14 +192,12 @@ namespace GaslandsTeamBuilderDataRepo
                 //Update Sponsor Perks
                 if(oldSponsor != newSponsor)
                 {
-                    foreach(Perk oldPerk in dbBuild.Perks.Where(p => p.Sponsor == oldSponsor))
-                    {
-                        dbBuild.Perks.Remove(oldPerk);
-                    }
+                    var moddedPerkKeyList = dbBuild.Perks.Where(p => p.Sponsor != oldSponsor).ToList();
+                    dbBuild.Perks.Clear();
 
-                    var newPerkList = _db.Perks.Where(p => p.Sponsor == newSponsor);
+                    moddedPerkKeyList.AddRange(_db.Perks.Where(p => p.Sponsor == newSponsor));
 
-                    foreach(Perk newPerk in newPerkList.ToList())
+                    foreach(Perk newPerk in moddedPerkKeyList.ToList())
                     {
                         dbBuild.Perks.Add(newPerk);
                     }
