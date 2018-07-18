@@ -10,6 +10,9 @@
     @Html.Partial("BuildPartial", Model)
 </form>
 
+<br />
+
+<button id="buildPrintButton" type="button" onclick="ShowBuildDashboard()">Print Dashboard</button>
 <button id="validateButton" type="button" onclick="ValidateBuild()">Validate Build</button>
 <button id="saveButton" type="button" onclick="SaveBuild()">Save Build</button>
 
@@ -23,6 +26,11 @@
     $(document).ajaxComplete(function () {
         $(document.body).css({ 'cursor': 'default' })
     });
+
+    function ShowBuildDashboard() {
+        build = $("#buildKey").val();
+        window.open("/Garage/GetDashboardForBuild?buildKey=" + build, "_blank");
+    }
 
     function ValidateBuild() {
         build = $("#buildKey").val();

@@ -40,6 +40,7 @@ form select {
     padding: 3px 5px;
     margin: 4px 0px;
 }
+
 form .generalInfoSpan {
     min-width: 60px;
 }
@@ -56,6 +57,61 @@ form .generalInfoSpan {
     padding: 2px 4px;
 }
 
-.displayTable td.number {
-    text-align: center;
+    .displayTable td.number {
+        text-align: center;
+    }
+
+/*Printable Dashboard settings*/
+div#dashboard {
+    width: 360pt;
+    height: 520pt;
+    border: 2px solid black;
+    font-size: 12px;
 }
+
+    div#dashboard .printSectionHeader {
+        font-weight: 600;
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+
+    div#dashboard #vehicleStatsContainer {
+        width: 100%;
+        height: 75px;
+    }
+
+    div#dashboard #leftColumn {
+        width: 50%;
+        float: left;
+    }
+
+    div#dashboard #middleColumn {
+        width: 30%;
+        float: right;
+    }
+
+    div #dashboard #rightColumn {
+        width: 20%;
+        float: right;
+    }
+
+    div#dashboard div.gearDisplay {
+        border: 4px solid black;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    div#dashboard td.hullDisplay {
+        -webkit-transform: rotate(270deg);
+        -moz-transform: rotate(270deg);
+        -o-transform: rotate(270deg);
+    }
+
+    div#dashboard td > div.hullSquare {
+        margin: 2px;
+        border: 2px solid black;
+        width: 20px;
+        height: 20px;
+    }

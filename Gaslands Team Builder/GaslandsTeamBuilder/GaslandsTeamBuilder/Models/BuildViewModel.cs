@@ -27,5 +27,10 @@ namespace GaslandsTeamBuilder.Models
         public List<Weapon> WeaponDropDown { get; set; }
         public List<string> BuildErrors { get; set; }
         public List<SpecialRule> SpecialRules { get; set; }
+
+        public void PrepForPrint()
+        {
+            
+        }
     }
 }
