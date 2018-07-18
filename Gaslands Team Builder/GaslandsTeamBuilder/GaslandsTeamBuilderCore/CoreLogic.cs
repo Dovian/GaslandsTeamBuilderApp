@@ -94,7 +94,7 @@ namespace GaslandsTeamBuilderCore
 
             if (build.Weapons != null)
             {
-                var weaponRuleNames = build.Weapons.SelectMany(w => w.SpecialRules.Split(','));
+                var weaponRuleNames = build.Weapons.SelectMany(w => string.IsNullOrEmpty(w.SpecialRules) ? new string[] { "" } :  w.SpecialRules.Split(','));
                 foreach (string rule in weaponRuleNames)
                 {
                     var result = _dBReader.GetSpecialRule(rule);
