@@ -34,3 +34,28 @@ textarea {
 .ruleName {
     font-weight: 700;
 }
+
+/*Form Display settings*/
+form select {
+    padding: 3px 5px;
+    margin: 4px 0px;
+}
+form .generalInfoSpan {
+    min-width: 60px;
+}
+
+/*Table Display settings*/
+.displayTable > thead td {
+    background-color: lightgray;
+    border: 2px solid black;
+    font-weight: 600;
+}
+
+.displayTable td {
+    border: 1px solid black;
+    padding: 2px 4px;
+}
+
+.displayTable td.number {
+    text-align: center;
+}

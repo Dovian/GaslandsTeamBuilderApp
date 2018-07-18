@@ -9,7 +9,7 @@
 Teams:
 @if (Model.Teams.Count > 0)
 {
-    <table>
+    <table class="displayTable">
         <thead>
             <tr>
                 <td>Name</td>
@@ -31,7 +31,7 @@ Teams:
                         <div>@build.Name - @build.FinalCanCost</div>
                     }
                 </td>
-                <td>@team.TotalCost</td>
+                <td class="number">@team.TotalCost</td>
                 <td>@Html.ActionLink("Edit", "Team", "Garage", new { key = team.Key }, null)</td>
                 <td>@Html.ActionLink("Delete", "DeleteTeam", "Garage", new { key = team.Key }, null)</td>
             </tr>
@@ -45,7 +45,7 @@ Teams:
 Builds:
 @if (Model.Builds.Count > 0)
 {
-    <table>
+    <table class="displayTable">
         <thead>
             <tr>
                 <td>Name</td>
@@ -60,7 +60,7 @@ Builds:
             <tr>
                 <td>@build.Name</td>
                 <td>@(build.Vehicle != null ? build.Vehicle.Name : "---")</td>
-                <td>@build.FinalCanCost</td>
+                <td class="number">@build.FinalCanCost</td>
                 <td>@Html.ActionLink("Edit", "Build", "Garage", new { key = build.Key }, null)</td>
                 <td>@Html.ActionLink("Delete", "DeleteBuild", "Garage", new { key = build.Key }, null)</td>
             </tr>

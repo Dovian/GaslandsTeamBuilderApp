@@ -20,7 +20,7 @@
     @Html.DropDownList("Builds", Model.BuildList, "--Select Build--", new { id = "buildSelector", onchange = "AddBuild()" })
     @if (Model.team.TeamBuilds.Count > 0)
     {
-        <table>
+        <table class="displayTable">
             <thead>
                 <tr>
                     <td>Name</td>
@@ -34,8 +34,8 @@
                 <tr>
                     <td>@build.Name</td>
                     <td>@(build.Sponsor != null ? build.Sponsor.Name : "")</td>
-                    <td>@build.FinalCanCost</td>
-                    <td><button class="removePerk" type="button" onclick="RemoveBuild(@build.Key)">X</button></td>
+                    <td class="number">@build.FinalCanCost</td>
+                    <td><button class="removeBuild" type="button" onclick="RemoveBuild(@build.Key)">X</button></td>
                 </tr>
             }
         </table>
