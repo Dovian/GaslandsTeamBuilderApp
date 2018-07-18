@@ -12,9 +12,9 @@
 
 <br />
 
-<button id="buildPrintButton" type="button" onclick="ShowBuildDashboard()">Print Dashboard</button>
-<button id="validateButton" type="button" onclick="ValidateBuild()">Validate Build</button>
 <button id="saveButton" type="button" onclick="SaveBuild()">Save Build</button>
+<button id="validateButton" type="button" onclick="ValidateBuild()">Validate Build</button>
+<button id="buildPrintButton" type="button" onclick="ShowBuildDashboard()" disabled="disabled">Print Dashboard</button>
 
 <br />
 @Html.ActionLink("Back to Garage", "Index", "Garage", null, null)
@@ -40,6 +40,11 @@
             type: "POST",
             success: function (result) {
                 $("#BuildForm").html(result);
+            },
+            complete: function() {
+                if ($(".errors").length == 0) {
+                    $("#buildPrintButton").removeAttr("disabled");
+                }
             }
         });
     }
@@ -120,7 +125,7 @@
         $("#facing_" + weapon).removeAttr("hidden");
         $("#facing_" + weapon).removeAttr("disabled");
     }
-    
+
     function AddWeapon() {
         weapon = $("#weaponSelector").val();
         facing = $("#facing_" + weapon).val();

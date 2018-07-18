@@ -1,14 +1,6 @@
 ﻿@model GaslandsTeamBuilder.Models.BuildViewModel
 
 <div>
-    @if (Model.BuildErrors.Count > 0)
-    {
-        <h3>Errors</h3>
-        foreach (string error in Model.BuildErrors)
-        {
-            <div class="error">@error</div>
-        }
-    }
     @Html.HiddenFor(model => model.build.Key, new { id = "buildKey" })
 
     <br />
@@ -63,7 +55,9 @@
                     <td>@perk.Name</td>
                     <td class="number">@perk.CanCost</td>
                     <td>@perk.Description</td>
-                    @if (perk.CanCost > 0){<td><button class="removePerk" type="button" onclick="RemovePerk(@perk.Key)">X</button></td>}
+                    @if (perk.CanCost > 0)
+                    {
+                        <td><button class="removePerk" type="button" onclick="RemovePerk(@perk.Key)">X</button></td>}
                 </tr>
             }
         </table>
@@ -153,6 +147,14 @@
             {
                 <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
             }
+        }
+    }
+    @if (Model.BuildErrors.Count > 0)
+    {
+        <h3>Errors</h3>
+        foreach (string error in Model.BuildErrors)
+        {
+            <div class="error">@error</div>
         }
     }
 </div>
