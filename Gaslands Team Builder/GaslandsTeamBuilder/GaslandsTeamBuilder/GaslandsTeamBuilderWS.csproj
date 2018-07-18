@@ -267,7 +267,8 @@
     <Content Include="Views\Garage\TeamPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\CreateUser.cshtml" />
-    <Content Include="Views\Garage\DashboardPartial.cshtml" />
+    <Content Include="Views\Garage\DashboardPrint.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

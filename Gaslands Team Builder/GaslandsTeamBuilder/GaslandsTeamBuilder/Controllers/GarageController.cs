@@ -69,6 +69,14 @@ namespace GaslandsTeamBuilder.Controllers
         }
 
         #region AjaxCalls
+        public ActionResult GetDashboardForBuild(int buildKey)
+        {
+            BuildViewModel model = new BuildViewModel();
+            model.build = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);
+            model.SpecialRules = _coreLogic.GetSpecialRules(model.build);
+
+            return View("DashboardPrint", model);
+        }
         public ActionResult ValidateBuild(int buildKey)
         {
             var validatedBuild = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);

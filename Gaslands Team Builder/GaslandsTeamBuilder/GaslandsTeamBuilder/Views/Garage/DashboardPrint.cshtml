@@ -1,0 +1,110 @@
+﻿@model GaslandsTeamBuilder.Models.BuildViewModel
+
+@{
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+
+<div id="dashboard">
+    @Model.build.Vehicle.Name.ToUpper()
+
+    <div id="vehicleStatsContainer">
+        <div id="leftColumn">
+            <div class="vehicleStat">HANDLING: @Model.build.FinalHandling</div>
+            <table id="hullTable">
+                <tr>
+                    <td class="hullDisplay">LL</td>
+                    @for (int i = 0; i < (Model.build.FinalHull / 2); i++)
+                    {
+                        <td><div class="hullSquare" /></td>
+                    }
+                </tr>
+                <tr>
+                    <td class="hullDisplay">HU</td>
+                    @for (int i = 0; i < (Model.build.FinalHull / 2); i++)
+                    {
+                        <td><div class="hullSquare" /></td>
+                    }
+                </tr>
+            </table>
+        </div>
+        <div id="rightColumn">
+            <div class="vehicleStat">GEAR</div>
+            <div class="gearDisplay">@Model.build.FinalMaxGear</div>
+        </div>
+        <div id="middleColumn">
+            <div class="vehicleStat">CREW: @Model.build.FinalCrew</div>
+            <div class="vehicleStat">@Model.build.FinalWeightClass.ToUpper()</div>
+        </div>
+    </div>
+
+    @if (Model.build.Perks.Count > 0)
+    {
+        <div class="printSectionHeader">Perks</div>
+        <table class="displayTable">
+            @foreach (var perk in Model.build.Perks)
+            {
+                <tr>
+                    <td>@perk.Name</td>
+                    <td>@perk.Description</td>
+                </tr>
+            }
+        </table>
+    }
+    @if (Model.build.Upgrades.Count > 0)
+    {
+        <div class="printSectionHeader">Upgrades</div>
+        <table class="displayTable">
+            @foreach (var upgrade in Model.build.Upgrades)
+            {
+                <tr>
+                    <td>@upgrade.Name</td>
+                    <td>@upgrade.EffectDisplay</td>
+                </tr>
+            }
+        </table>
+    }
+    @if (Model.build.Weapons.Count > 0)
+    {
+        <div class="printSectionHeader">Weapons</div>
+        <table class="displayTable">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Attack</td>
+                    <td>Ammo</td>
+                    <td>Range</td>
+                    <td>Facing</td>
+                    <td>Effect</td>
+                </tr>
+            </thead>
+            @foreach (var weapon in Model.build.Weapons)
+            {
+                <tr>
+                    <td>@weapon.Name</td>
+                    <td class="number">@weapon.Attack</td>
+                    <td class="number">@weapon.Ammo</td>
+                    <td>@weapon.Range</td>
+                    <td>@weapon.Facing</td>
+                    <td>@weapon.SpecialRules</td>
+                </tr>
+            }
+        </table>
+    }
+    @if (Model.SpecialRules != null && Model.SpecialRules.Count > 0)
+    {
+        if (Model.SpecialRules.Where(sr => sr.Category == "Vehicle").Count() > 0)
+        {
+            foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Vehicle"))
+            {
+                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+            }
+        }
+        if (Model.SpecialRules.Where(sr => sr.Category == "Weapon").Count() > 0)
+        {
+            foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Weapon"))
+            {
+                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+            }
+        }
+    }
+</div>

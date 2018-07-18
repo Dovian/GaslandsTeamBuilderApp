@@ -213,6 +213,14 @@ namespace GaslandsTeamBuilderCore
             {
                 errors.Add("You may not have more than one \"Tank Tracks\" upgrade");
             }
+            if(hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 0 && hasVehicle)
+            {
+                var limit = new string[] { "Tank", "Helicopter", "Gyrocopter" };
+                if (limit.Contains(dbBuild.Vehicle1.Name))
+                {
+                    errors.Add("You may not purchase \"Tank Tracks\" on a " + dbBuild.Vehicle1.Name);
+                }
+            }
             //Perk specific limitations(Stunt Driver, Experimental Nuclear Engine)
             if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null && hasVehicle)
             {

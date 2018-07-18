@@ -20,6 +20,8 @@
                 if (HandlingEffect != 0) { effect += (" Handling: " + (HandlingEffect > 0 ? "+" + HandlingEffect.ToString() : HandlingEffect.ToString())); }
                 if (MaxGearEffect != 0) { effect += (" Max Gear: " + (MaxGearEffect > 0 ? "+" + MaxGearEffect.ToString() : MaxGearEffect.ToString())); }
                 if (CrewEffect != 0) { effect += (" Crew: " + (CrewEffect > 0 ? "+" + CrewEffect.ToString() : CrewEffect.ToString())); }
+                if (Name == "Nitro Booster") { effect = ""; }
+                if (Name == "Tank Tracks") { effect += " This vehicle may also ignore rough and treacherous surfaces."; }
 
                 return effect;
             }
