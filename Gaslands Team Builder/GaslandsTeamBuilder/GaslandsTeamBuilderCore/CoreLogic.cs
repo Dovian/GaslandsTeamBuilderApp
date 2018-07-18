@@ -213,14 +213,18 @@ namespace GaslandsTeamBuilderCore
             {
                 errors.Add("You may not have more than one \"Tank Tracks\" upgrade");
             }
-            //Perk specific limitations(Stunt Driver)
-            if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null && dbBuild.Vehicle.HasValue)
+            //Perk specific limitations(Stunt Driver, Experimental Nuclear Engine)
+            if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null && hasVehicle)
             {
                 var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
                 if (!limit.Contains(dbBuild.Vehicle1.Name))
                 {
                     errors.Add("Stunt Driver cannot be taken on a " + dbBuild.Vehicle1.Name);
                 }
+            }
+            if(dbBuild.Perks.SingleOrDefault(p => p.Name == "Experimental Nuclear Engine") != null && hasVehicle && dbBuild.Vehicle1.WeightClass == "Lightweight")
+            {
+                errors.Add("Experimental Nuclear Engine cannot be taken on a Lightweight vehicle.");
             }
             return errors;
         }

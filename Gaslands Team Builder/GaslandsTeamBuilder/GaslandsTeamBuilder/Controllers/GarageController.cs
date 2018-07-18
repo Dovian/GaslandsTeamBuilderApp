@@ -56,6 +56,7 @@ namespace GaslandsTeamBuilder.Controllers
             if (key == -1)
             {
                 key = _coreLogic.CreateBuild(_AppUserState.UserId);
+                return RedirectToAction("Build", new { key = key });
             }
 
             viewBuild = _coreLogic.GetBuild(key, _AppUserState.UserId);

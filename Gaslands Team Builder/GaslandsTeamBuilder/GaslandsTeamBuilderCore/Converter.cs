@@ -96,6 +96,7 @@ namespace GaslandsTeamBuilderCore
                     Name = w.Name,
                     Range = w.Range,
                     SpecialRules = w.SpecialRules,
+                    Attack = w.Attack,
                     FacingAllowed = w.FacingAllowed.Split(',').ToList()
                 })
                 .ToList();
@@ -114,7 +115,8 @@ namespace GaslandsTeamBuilderCore
                     CanCost = w.Weapon.CanCost.Value,
                     Name = w.Weapon.Name,
                     Range = w.Weapon.Range,
-                    SpecialRules = w.Weapon.SpecialRules
+                    SpecialRules = w.Weapon.SpecialRules,
+                    Attack = w.Weapon.Attack
                 })
                 .ToList();
         }
