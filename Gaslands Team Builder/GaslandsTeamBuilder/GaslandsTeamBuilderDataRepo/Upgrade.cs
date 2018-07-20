@@ -28,6 +28,7 @@ namespace GaslandsTeamBuilderDataRepo
         public Nullable<int> HandlingEffect { get; set; }
         public Nullable<int> MaxGearEffect { get; set; }
         public Nullable<int> CrewEffect { get; set; }
+        public string SpecialText { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildUpgrade> BuildUpgrades { get; set; }

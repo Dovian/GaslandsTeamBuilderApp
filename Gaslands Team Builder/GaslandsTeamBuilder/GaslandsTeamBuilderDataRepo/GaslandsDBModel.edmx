@@ -112,6 +112,7 @@
           <Property Name="HandlingEffect" Type="int4" />
           <Property Name="MaxGearEffect" Type="int4" />
           <Property Name="CrewEffect" Type="int4" />
+          <Property Name="SpecialText" Type="text" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -514,6 +515,7 @@
           <Property Name="MaxGearEffect" Type="Int32" />
           <Property Name="CrewEffect" Type="Int32" />
           <NavigationProperty Name="BuildUpgrades" Relationship="GaslandsAppModel.FK_BuildUpgrades_Upgrade" FromRole="Upgrade" ToRole="BuildUpgrade" />
+          <Property Name="SpecialText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Vehicle">
           <Key>
@@ -877,6 +879,7 @@
           <EntitySetMapping Name="Upgrades">
             <EntityTypeMapping TypeName="GaslandsAppModel.Upgrade">
               <MappingFragment StoreEntitySet="Upgrade">
+                <ScalarProperty Name="SpecialText" ColumnName="SpecialText" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CanCost" ColumnName="CanCost" />

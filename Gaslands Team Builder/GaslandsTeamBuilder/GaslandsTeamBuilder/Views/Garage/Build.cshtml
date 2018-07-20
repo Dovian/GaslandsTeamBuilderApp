@@ -4,11 +4,13 @@
     ViewBag.Title = "Build";
 }
 
-<h2>Build</h2>
+<h3>Build</h3>
 
 <form id="BuildForm">
     @Html.Partial("BuildPartial", Model)
 </form>
+
+<div id="ErrorContainer"></div>
 
 <br />
 
@@ -39,11 +41,12 @@
             data: { buildKey: build },
             type: "POST",
             success: function (result) {
-                $("#BuildForm").html(result);
-            },
-            complete: function() {
-                if ($(".errors").length == 0) {
+                $("#ErrorContainer").html(result);
+                if ($(".error").length == 0) {
                     $("#buildPrintButton").removeAttr("disabled");
+                }
+                else {
+                    $("#buildPrintButton").attr("disabled", "disabled");
                 }
             }
         });

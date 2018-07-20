@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    font-family: Arial;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -35,6 +34,10 @@ textarea {
     font-weight: 700;
 }
 
+.clearFloat {
+    clear: both;
+}
+
 /*Form Display settings*/
 form select {
     padding: 3px 5px;
@@ -45,7 +48,65 @@ form .generalInfoSpan {
     min-width: 60px;
 }
 
+form .floatHolder {
+    width: 100%;
+    min-height: 50px;
+}
+
+form .driverInfoSection {
+    height: 100px;
+}
+
+form .floatHolder .leftColumn {
+    width: 50%;
+    float: left;
+}
+
+form .floatHolder .rightColumn {
+    width: 50%;
+    float: right;
+}
+
 /*Table Display settings*/
+.buildDisplayTable {
+    margin: 5px 0px;
+}
+
+    .buildDisplayTable > thead td {
+        background-color: lightgray;
+        border: 2px solid black;
+        font-weight: 600;
+    }
+
+    .buildDisplayTable td {
+        border: 1px solid black;
+        padding: 2px 4px;
+    }
+
+        .buildDisplayTable td.number {
+            text-align: center;
+        }
+
+/*Printable Dashboard settings*/
+.pageBreakBefore {
+    page-break-before: always;
+}
+
+.teamDashboardContainer {
+    width: 100%;
+    height: 520pt;
+}
+
+    .teamDashboardContainer .teamDashboardLeft {
+        float: left;
+        width: 50%;
+    }
+
+    .teamDashboardContainer .teamDashboardRight {
+        float: right;
+        width: 50%;
+    }
+
 .displayTable > thead td {
     background-color: lightgray;
     border: 2px solid black;
@@ -61,7 +122,6 @@ form .generalInfoSpan {
         text-align: center;
     }
 
-/*Printable Dashboard settings*/
 div#dashboard {
     width: 360pt;
     height: 520pt;
