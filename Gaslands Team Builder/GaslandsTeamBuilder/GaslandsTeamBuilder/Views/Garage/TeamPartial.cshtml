@@ -40,12 +40,4 @@
             }
         </table>
     }
-    @if (Model.TeamErrors.Count > 0)
-    {
-        <h4>Errors</h4>
-        foreach (string error in Model.TeamErrors)
-        {
-            <div class="error">@error</div>
-        }
-    }
 </div>

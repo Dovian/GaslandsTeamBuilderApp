@@ -10,6 +10,8 @@
     @Html.Partial("BuildPartial", Model)
 </form>
 
+<div id="ErrorContainer"></div>
+
 <br />
 
 <button id="saveButton" type="button" onclick="SaveBuild()">Save Build</button>
@@ -39,12 +41,13 @@
             data: { buildKey: build },
             type: "POST",
             success: function (result) {
-                $("#BuildForm").html(result);
-                setTimeout(function () {
-                    if ($(".errors").length == 0) {
-                        $("#buildPrintButton").removeAttr("disabled");
-                    }
-                }, 1000);
+                $("#ErrorContainer").html(result);
+                if ($(".error").length == 0) {
+                    $("#buildPrintButton").removeAttr("disabled");
+                }
+                else {
+                    $("#buildPrintButton").attr("disabled", "disabled");
+                }
             }
         });
     }

@@ -81,13 +81,9 @@ namespace GaslandsTeamBuilder.Controllers
         public ActionResult ValidateBuild(int buildKey)
         {
             var validatedBuild = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);
-            var dropdowns = _coreLogic.GetDropDowns(validatedBuild);
+            var model = _coreLogic.ValidateBuild(validatedBuild, _AppUserState.UserId);
 
-            BuildViewModel model = new BuildViewModel(validatedBuild, dropdowns);
-            model.BuildErrors = _coreLogic.ValidateBuild(model.build, _AppUserState.UserId);
-            model.SpecialRules = _coreLogic.GetSpecialRules(model.build);
-
-            return PartialView("BuildPartial", model);
+            return PartialView("ErrorListPartial", model);
         }
 
         public ActionResult GetDashboardForTeam(int teamKey)
@@ -103,12 +99,9 @@ namespace GaslandsTeamBuilder.Controllers
         public ActionResult ValidateTeam(int teamKey)
         {
             var validatedTeam = _coreLogic.GetTeam(teamKey, _AppUserState.UserId);
-            var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
-            var errors = _coreLogic.ValidateTeam(validatedTeam, _AppUserState.UserId);
+            var model = _coreLogic.ValidateTeam(validatedTeam, _AppUserState.UserId);
 
-            TeamViewModel model = new TeamViewModel(validatedTeam, builds, errors);
-
-            return PartialView("teamPartial", model);
+            return PartialView("ErrorListPartial", model);
         }
 
         public ActionResult SaveTeam(TeamViewModel dto)

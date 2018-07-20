@@ -9,6 +9,9 @@
 <form id="TeamForm">
     @Html.Partial("TeamPartial", Model)
 </form>
+<br />
+
+<div id="ErrorContainer"></div>
 
 <button id="saveButton" type="button" onclick="SaveTeam()">Save Team</button>
 <button id="validateButton" type="button" onclick="ValidateTeam()">Validate Team</button>
@@ -37,12 +40,10 @@
             data: { teamKey: team },
             type: "POST",
             success: function (result) {
-                $("#TeamForm").html(result);
-                setTimeout(function () {
-                    if ($(".errors").length == 0) {
-                        $("#teamPrintButton").removeAttr("disabled");
-                    }
-                }, 1000);
+                $("#ErrorContainer").html(result);
+                if ($(".error").length == 0) {
+                    $("#teamPrintButton").removeAttr("disabled");
+                }
             }
         });
     }
