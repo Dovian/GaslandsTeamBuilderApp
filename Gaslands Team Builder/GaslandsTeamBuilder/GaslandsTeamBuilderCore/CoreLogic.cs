@@ -201,6 +201,13 @@ namespace GaslandsTeamBuilderCore
             {
                 errors.Add("Experimental Nuclear Engine cannot be taken on a Lightweight vehicle.");
             }
+            //'Duh' checks
+            if(hasVehicle && hasWeapon && hasUpgrades)
+            {
+                if (dbBuild.Vehicle1.BuildSlots - dbBuild.BuildWeapons.Sum(bw => bw.Weapon.BuildSlotCost) - dbBuild.BuildUpgrades.Sum(bu => bu.Upgrade.BuildSlotCost) < 0)
+                    errors.Add("Build slots cannot be negative.");
+            }
+
             return errors;
         }
 
