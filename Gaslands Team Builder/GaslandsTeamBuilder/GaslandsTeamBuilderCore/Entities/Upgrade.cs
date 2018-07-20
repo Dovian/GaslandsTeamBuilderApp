@@ -31,7 +31,7 @@
         {
             get
             {
-                return Name + " (" + CanCost.ToString() + ")";
+                return Name + " (" + CanCost.ToString() + ", " + BuildSlotCost.ToString() + ")";
             }
         }
     }

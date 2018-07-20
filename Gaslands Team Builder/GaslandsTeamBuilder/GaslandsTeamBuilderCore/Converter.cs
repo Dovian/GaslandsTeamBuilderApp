@@ -46,6 +46,7 @@ namespace GaslandsTeamBuilderCore
                     Description = p.Description,
                     Name = p.Name
                 })
+                .OrderBy(p => p.CanCost)
                 .ToList();
         }
 

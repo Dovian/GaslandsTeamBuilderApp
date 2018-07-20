@@ -28,20 +28,22 @@
     </table>
 
     <br />
-    <span class="generalInfoSpan">Name: </span>@Html.TextBoxFor(model => model.build.Name)<br />
-    <span class="generalInfoSpan">Driver: </span>@Html.TextBoxFor(model => model.build.Driver)<br />
-    <span class="generalInfoSpan">Notes: </span>@Html.TextAreaFor(model => model.build.Notes)<br />
+    <div class="floatHolder driverInfoSection">
+        <div class="leftColumn">
+            <span class="generalInfoSpan">Name: </span>@Html.TextBoxFor(model => model.build.Name)<br />
+            <span class="generalInfoSpan">Driver: </span>@Html.TextBoxFor(model => model.build.Driver)<br />
+            <span class="generalInfoSpan">Notes: </span>@Html.TextAreaFor(model => model.build.Notes)<br />
+        </div>
+        <div class="rightColumn">
+            @Html.DropDownListFor(model => model.build.Sponsor.Key, Model.SponsorDropDown, "--Select Sponsor--", new { @onchange = "SaveBuild()" })<br />
+            @Html.DropDownListFor(model => model.build.Vehicle.Key, Model.VehicleDropDown, "--Select Vehicle--", new { @onchange = "SaveBuild()" })<br />
+        </div>
+    </div>
 
-    @Html.DropDownListFor(model => model.build.Sponsor.Key, Model.SponsorDropDown, "--Select Sponsor--", new { @onchange = "SaveBuild()" })<br />
-    @Html.DropDownListFor(model => model.build.Vehicle.Key, Model.VehicleDropDown, "--Select Vehicle--", new { @onchange = "SaveBuild()" })<br />
-
-    <br />
-
-    <!--All need ids and events on selection-->
     @Html.DropDownList("Perks", Model.PerkDropDown, "--Select Perk--", new { id = "perkSelector", @onchange = "AddPerk()" })<br />
     @if (Model.build.Perks.Count > 0)
     {
-        <table class="displayTable">
+        <table class="buildDisplayTable">
             <thead>
                 <tr>
                     <td>Name</td>
@@ -62,69 +64,75 @@
             }
         </table>
     }
-    @Html.DropDownList("Upgrades", Model.UpgradeDropDown, "--Select Upgrade--", new { id = "upgradeSelector", @onchange = "AddUpgrade()" })<br />
-    @if (Model.build.Upgrades.Count > 0)
-    {
-        <table class="displayTable">
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Cans</td>
-                    <td>Slots</td>
-                    <td>Effect</td>
-                </tr>
-            </thead>
-            @foreach (var upgrade in Model.build.Upgrades)
+    <div class="floatHolder">
+        <div class="rightColumn">
+            @Html.DropDownList("Upgrades", Model.UpgradeDropDown, "--Select Upgrade(Cans, Slots)--", new { id = "upgradeSelector", @onchange = "AddUpgrade()" })<br />
+            @if (Model.build.Upgrades.Count > 0)
             {
-                <tr>
-                    <td>@upgrade.Name</td>
-                    <td class="number">@upgrade.CanCost</td>
-                    <td class="number">@upgrade.BuildSlotCost</td>
-                    <td>@upgrade.EffectDisplay</td>
-                    <td><button class="removeUpgrade" type="button" onclick="RemoveUpgrade(@upgrade.BuildUpgradeKey)">X</button></td>
-                </tr>
+                <table class="buildDisplayTable">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Cans</td>
+                            <td>Slots</td>
+                            <td>Effect</td>
+                        </tr>
+                    </thead>
+                    @foreach (var upgrade in Model.build.Upgrades)
+                    {
+                        <tr>
+                            <td>@upgrade.Name</td>
+                            <td class="number">@upgrade.CanCost</td>
+                            <td class="number">@upgrade.BuildSlotCost</td>
+                            <td>@upgrade.EffectDisplay</td>
+                            <td><button class="removeUpgrade" type="button" onclick="RemoveUpgrade(@upgrade.BuildUpgradeKey)">X</button></td>
+                        </tr>
+                    }
+                </table>
             }
-        </table>
-    }
-    @Html.DropDownList("Weapons", new SelectList(Model.WeaponDropDown, "WeaponKey", "ListDisplay"), "--Select Weapon(Cans, Slots)--", new { id = "weaponSelector", @onchange = "ShowFacing()" })
-    @foreach (var weapon in Model.WeaponDropDown)
-    {
-        @Html.DropDownList("Facing", new SelectList(weapon.FacingAllowed.Select(f => new { Value = f, Text = f }), "Value", "Text"), "--Select Facing--", new { id = "facing_" + weapon.WeaponKey, @class = "facings", hidden = "hidden" })
-    }
-    <button id="addWeaponButton" class="addWeapon" type="button" onclick="AddWeapon()" hidden="hidden">+</button>
-    @if (Model.build.Weapons.Count > 0)
-    {
-        <table class="displayTable">
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Cans</td>
-                    <td>Slots</td>
-                    <td>Attack</td>
-                    <td>Ammo</td>
-                    <td>Facing</td>
-                    <td>Effect</td>
-                </tr>
-            </thead>
-            @foreach (var weapon in Model.build.Weapons)
+        </div>
+        <div class="leftColumn">
+            @Html.DropDownList("Weapons", new SelectList(Model.WeaponDropDown, "WeaponKey", "ListDisplay"), "--Select Weapon(Cans, Slots)--", new { id = "weaponSelector", @onchange = "ShowFacing()" })
+            @foreach (var weapon in Model.WeaponDropDown)
             {
-                <tr>
-                    <td>@weapon.Name</td>
-                    <td class="number">@weapon.CanCost</td>
-                    <td class="number">@weapon.BuildSlotCost</td>
-                    <td class="number">@weapon.Attack</td>
-                    <td class="number">@weapon.Ammo</td>
-                    <td>@weapon.Facing</td>
-                    <td>@weapon.SpecialRules</td>
-                    <td><button class="removeWeapon" type="button" onclick="RemoveWeapon(@weapon.BuildWeaponKey)">X</button></td>
-                </tr>
+                @Html.DropDownList("Facing", new SelectList(weapon.FacingAllowed.Select(f => new { Value = f, Text = f }), "Value", "Text"), "--Select Facing--", new { id = "facing_" + weapon.WeaponKey, @class = "facings", hidden = "hidden" })
             }
-        </table>
-    }
+            <button id="addWeaponButton" class="addWeapon" type="button" onclick="AddWeapon()" hidden="hidden">+</button>
+            @if (Model.build.Weapons.Count > 0)
+            {
+                <table class="buildDisplayTable">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Cans</td>
+                            <td>Slots</td>
+                            <td>Attack</td>
+                            <td>Ammo</td>
+                            <td>Facing</td>
+                            <td>Effect</td>
+                        </tr>
+                    </thead>
+                    @foreach (var weapon in Model.build.Weapons)
+                    {
+                        <tr>
+                            <td>@weapon.Name</td>
+                            <td class="number">@weapon.CanCost</td>
+                            <td class="number">@weapon.BuildSlotCost</td>
+                            <td class="number">@weapon.Attack</td>
+                            <td class="number">@weapon.Ammo</td>
+                            <td>@weapon.Facing</td>
+                            <td>@weapon.SpecialRules</td>
+                            <td><button class="removeWeapon" type="button" onclick="RemoveWeapon(@weapon.BuildWeaponKey)">X</button></td>
+                        </tr>
+                    }
+                </table>
+            }
+        </div>
+    </div>
 
     @if (Model.SpecialRules != null && Model.SpecialRules.Count > 0)
     {
-        <h3>Vehicle Rules:</h3>
+        <h4>Vehicle Rules:</h4>
         if (Model.SpecialRules.Where(sr => sr.Category == "Vehicle").Count() == 0)
         {
             <div>None</div>
@@ -136,7 +144,7 @@
                 <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
             }
         }
-        <h3>Weapon Rules:</h3>
+        <h4>Weapon Rules:</h4>
         if (Model.SpecialRules.Where(sr => sr.Category == "Weapon").Count() == 0)
         {
             <div>None</div>
@@ -151,7 +159,7 @@
     }
     @if (Model.BuildErrors.Count > 0)
     {
-        <h3>Errors</h3>
+        <h4>Errors</h4>
         foreach (string error in Model.BuildErrors)
         {
             <div class="error">@error</div>
