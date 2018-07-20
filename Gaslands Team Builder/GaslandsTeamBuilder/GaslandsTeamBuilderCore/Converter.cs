@@ -62,7 +62,8 @@ namespace GaslandsTeamBuilderCore
                     BuildSlotCost = u.BuildSlotCost.Value,
                     HandlingEffect = u.HandlingEffect.Value,
                     HullEffect = u.HullEffect.Value,
-                    MaxGearEffect = u.MaxGearEffect.Value
+                    MaxGearEffect = u.MaxGearEffect.Value,
+                    SpecialText = u.SpecialText
                 })
                 .ToList();
         }
@@ -80,7 +81,8 @@ namespace GaslandsTeamBuilderCore
                     BuildSlotCost = u.Upgrade.BuildSlotCost.Value,
                     HandlingEffect = u.Upgrade.HandlingEffect.Value,
                     HullEffect = u.Upgrade.HullEffect.Value,
-                    MaxGearEffect = u.Upgrade.MaxGearEffect.Value
+                    MaxGearEffect = u.Upgrade.MaxGearEffect.Value,
+                    SpecialText = u.Upgrade.SpecialText
                 })
                 .ToList();
         }
