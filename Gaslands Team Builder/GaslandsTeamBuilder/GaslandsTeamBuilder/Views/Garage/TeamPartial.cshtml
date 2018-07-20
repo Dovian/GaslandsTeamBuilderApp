@@ -35,9 +35,17 @@
                     <td>@build.Name</td>
                     <td>@(build.Sponsor != null ? build.Sponsor.Name : "")</td>
                     <td class="number">@build.FinalCanCost</td>
-                    <td><button class="removeBuild" type="button" onclick="RemoveBuild(@build.Key)">X</button></td>
+                    <td><button class="removeBuild" type="button" onclick="RemoveBuild(@build.TeamBuildKey)">X</button></td>
                 </tr>
             }
         </table>
+    }
+    @if (Model.TeamErrors.Count > 0)
+    {
+        <h4>Errors</h4>
+        foreach (string error in Model.TeamErrors)
+        {
+            <div class="error">@error</div>
+        }
     }
 </div>

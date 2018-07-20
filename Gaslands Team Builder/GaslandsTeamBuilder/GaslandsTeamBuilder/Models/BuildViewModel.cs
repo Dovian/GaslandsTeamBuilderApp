@@ -8,15 +8,24 @@ namespace GaslandsTeamBuilder.Models
     public class BuildViewModel
     {
         public BuildViewModel() { }
-        public BuildViewModel(Build _build, DropDownContainer _dropdowns)
+        public BuildViewModel(Build _build, DropDownContainer _dropdowns, List<SpecialRule> _specialRules = null)
         {
             build = _build;
             BuildErrors = new List<string>();
-            PerkDropDown = new SelectList(_dropdowns.PerkDropDown, "Key", "ListDisplay");
-            SponsorDropDown = new SelectList(_dropdowns.SponsorDropDown, "Key", "Name");
-            UpgradeDropDown = new SelectList(_dropdowns.UpgradeDropDown, "UpgradeKey", "ListDisplay");
-            VehicleDropDown = new SelectList(_dropdowns.VehicleDropDown, "Key", "ListDisplay");
-            WeaponDropDown =_dropdowns.WeaponDropDown;
+            if (_dropdowns != null)
+            {
+                PerkDropDown = new SelectList(_dropdowns.PerkDropDown, "Key", "ListDisplay");
+                SponsorDropDown = new SelectList(_dropdowns.SponsorDropDown, "Key", "Name");
+                UpgradeDropDown = new SelectList(_dropdowns.UpgradeDropDown, "UpgradeKey", "ListDisplay");
+                VehicleDropDown = new SelectList(_dropdowns.VehicleDropDown, "Key", "ListDisplay");
+                WeaponDropDown = _dropdowns.WeaponDropDown;
+            }
+            SpecialRules = _specialRules;
+
+            if (SpecialRules == null)
+            {
+                SpecialRules = new List<SpecialRule>();
+            }
         }
 
         public Build build { get; set; }

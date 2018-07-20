@@ -3,10 +3,10 @@
 <div>
     @Html.HiddenFor(model => model.build.Key, new { id = "buildKey" })
 
-    <br />
     <table id="dashboard" class="displayTable">
         <thead>
             <tr>
+                <td>Vehicle</td>
                 <td>Build Slots</td>
                 <td>Can Cost</td>
                 <td>Crew</td>
@@ -17,6 +17,7 @@
             </tr>
         </thead>
         <tr>
+            <td>@Html.DisplayFor(model => model.build.Vehicle.Name)</td>
             <td class="number">@Html.DisplayFor(model => model.build.FinalBuildSlots)</td>
             <td class="number">@Html.DisplayFor(model => model.build.FinalCanCost)</td>
             <td class="number">@Html.DisplayFor(model => model.build.FinalCrew)</td>
@@ -129,34 +130,35 @@
             }
         </div>
     </div>
-
-    @if (Model.SpecialRules != null && Model.SpecialRules.Count > 0)
-    {
-        <h4>Vehicle Rules:</h4>
-        if (Model.SpecialRules.Where(sr => sr.Category == "Vehicle").Count() == 0)
+    <div class="clearFloat">
+        @if (Model.SpecialRules != null && Model.SpecialRules.Count > 0)
         {
-            <div>None</div>
-        }
-        else
-        {
-            foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Vehicle"))
+            <h4>Vehicle Rules:</h4>
+            if (Model.SpecialRules.Where(sr => sr.Category == "Vehicle").Count() == 0)
             {
-                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+                <div>None</div>
+            }
+            else
+            {
+                foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Vehicle"))
+                {
+                    <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+                }
+            }
+            <h4>Weapon Rules:</h4>
+            if (Model.SpecialRules.Where(sr => sr.Category == "Weapon").Count() == 0)
+            {
+                <div>None</div>
+            }
+            else
+            {
+                foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Weapon"))
+                {
+                    <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
+                }
             }
         }
-        <h4>Weapon Rules:</h4>
-        if (Model.SpecialRules.Where(sr => sr.Category == "Weapon").Count() == 0)
-        {
-            <div>None</div>
-        }
-        else
-        {
-            foreach (var rule in Model.SpecialRules.Where(sr => sr.Category == "Weapon"))
-            {
-                <div><span class="ruleName">@(rule.Name):</span> @(rule.Description)</div>
-            }
-        }
-    }
+    </div>
     @if (Model.BuildErrors.Count > 0)
     {
         <h4>Errors</h4>

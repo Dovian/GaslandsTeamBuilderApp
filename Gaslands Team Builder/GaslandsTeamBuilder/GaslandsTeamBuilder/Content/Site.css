@@ -34,6 +34,10 @@ textarea {
     font-weight: 700;
 }
 
+.clearFloat {
+    clear: both;
+}
+
 /*Form Display settings*/
 form select {
     padding: 3px 5px;
@@ -49,19 +53,19 @@ form .floatHolder {
     min-height: 50px;
 }
 
-    form .driverInfoSection {
-        height: 100px;
-    }
+form .driverInfoSection {
+    height: 100px;
+}
 
-    form .floatHolder .leftColumn {
-        width: 50%;
-        float: left;
-    }
+form .floatHolder .leftColumn {
+    width: 50%;
+    float: left;
+}
 
-    form .floatHolder .rightColumn {
-        width: 50%;
-        float: right;
-    }
+form .floatHolder .rightColumn {
+    width: 50%;
+    float: right;
+}
 
 /*Table Display settings*/
 .buildDisplayTable {
@@ -84,6 +88,25 @@ form .floatHolder {
         }
 
 /*Printable Dashboard settings*/
+.pageBreakBefore {
+    page-break-before: always;
+}
+
+.teamDashboardContainer {
+    width: 100%;
+    height: 520pt;
+}
+
+    .teamDashboardContainer .teamDashboardLeft {
+        float: left;
+        width: 50%;
+    }
+
+    .teamDashboardContainer .teamDashboardRight {
+        float: right;
+        width: 50%;
+    }
+
 .displayTable > thead td {
     background-color: lightgray;
     border: 2px solid black;

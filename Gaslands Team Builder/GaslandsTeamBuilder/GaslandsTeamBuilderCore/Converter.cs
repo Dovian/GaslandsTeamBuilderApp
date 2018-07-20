@@ -248,7 +248,7 @@ namespace GaslandsTeamBuilderCore
             return new Entities.TeamBuild()
             {
                 TeamBuildKey = teamBuild.Key,
-                Key = teamBuild.Key,
+                Key = teamBuild.BuildKey,
                 Name = teamBuild.Build.Name,
                 Driver = teamBuild.Build.Driver,
                 Notes = teamBuild.Build.Notes,

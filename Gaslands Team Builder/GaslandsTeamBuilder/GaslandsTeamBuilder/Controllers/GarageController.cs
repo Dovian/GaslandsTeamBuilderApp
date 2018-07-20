@@ -44,7 +44,7 @@ namespace GaslandsTeamBuilder.Controllers
             viewTeam = _coreLogic.GetTeam(key, _AppUserState.UserId);
             var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
 
-            TeamViewModel model = new TeamViewModel(viewTeam, builds, null);
+            TeamViewModel model = new TeamViewModel(viewTeam, builds);
 
             return View("Team", model);
         }
@@ -77,6 +77,7 @@ namespace GaslandsTeamBuilder.Controllers
 
             return View("DashboardPrint", model);
         }
+
         public ActionResult ValidateBuild(int buildKey)
         {
             var validatedBuild = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);
@@ -89,12 +90,33 @@ namespace GaslandsTeamBuilder.Controllers
             return PartialView("BuildPartial", model);
         }
 
+        public ActionResult GetDashboardForTeam(int teamKey)
+        {
+            TeamViewModel _team = new TeamViewModel();
+            _team.team = _coreLogic.GetTeam(teamKey, _AppUserState.UserId);
+            var builds = _team.team.TeamBuilds.Select(tb => _coreLogic.GetBuild(tb.Key, _AppUserState.UserId)).ToList();
+            var model = builds.Select(b => new BuildViewModel(b, null, _coreLogic.GetSpecialRules(b).ToList())).ToList();
+
+            return View("TeamDashboardPrint", model);
+        }
+
+        public ActionResult ValidateTeam(int teamKey)
+        {
+            var validatedTeam = _coreLogic.GetTeam(teamKey, _AppUserState.UserId);
+            var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
+            var errors = _coreLogic.ValidateTeam(validatedTeam, _AppUserState.UserId);
+
+            TeamViewModel model = new TeamViewModel(validatedTeam, builds, errors);
+
+            return PartialView("teamPartial", model);
+        }
+
         public ActionResult SaveTeam(TeamViewModel dto)
         {
             var updatedTeam = _coreLogic.UpdateTeam(dto.team, _AppUserState.UserId);
             var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
 
-            TeamViewModel model = new TeamViewModel(updatedTeam, builds, null);
+            TeamViewModel model = new TeamViewModel(updatedTeam, builds);
 
             return PartialView("TeamPartial", model);
         }
@@ -111,7 +133,7 @@ namespace GaslandsTeamBuilder.Controllers
             var updatedTeam = _coreLogic.AddBuildToTeam(teamKey, buildKey, _AppUserState.UserId);
             var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
 
-            TeamViewModel model = new TeamViewModel(updatedTeam, builds, null);
+            TeamViewModel model = new TeamViewModel(updatedTeam, builds);
 
             return PartialView("TeamPartial", model);
         }
@@ -121,7 +143,7 @@ namespace GaslandsTeamBuilder.Controllers
             var updatedTeam = _coreLogic.RemoveBuildFromTeam(teamKey, teamBuildKey, _AppUserState.UserId);
             var builds = _coreLogic.GetAllBuilds(_AppUserState.UserId);
 
-            TeamViewModel model = new TeamViewModel(updatedTeam, builds, null);
+            TeamViewModel model = new TeamViewModel(updatedTeam, builds);
 
             return PartialView("TeamPartial", model);
         }

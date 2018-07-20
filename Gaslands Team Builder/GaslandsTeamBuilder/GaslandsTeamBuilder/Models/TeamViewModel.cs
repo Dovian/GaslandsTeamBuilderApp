@@ -6,12 +6,16 @@ namespace GaslandsTeamBuilder.Models
 {
     public class TeamViewModel
     {
-        public TeamViewModel() { }
-        public TeamViewModel(Team _team, List<Build> buildList, List<string> errors)
+        public TeamViewModel() { TeamErrors = new List<string>(); }
+        public TeamViewModel(Team _team, List<Build> buildList, List<string> errors = null)
         {
             team = _team;
             BuildList = new SelectList(buildList, "Key", "ListDisplay");
             TeamErrors = errors;
+            if (TeamErrors == null)
+            {
+                TeamErrors = new List<string>();
+            }
         }
 
         public Team team { get; set; }

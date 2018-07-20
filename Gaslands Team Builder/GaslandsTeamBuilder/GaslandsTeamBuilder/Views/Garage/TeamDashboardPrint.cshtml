@@ -1,0 +1,27 @@
+﻿@model List<GaslandsTeamBuilder.Models.BuildViewModel>
+
+@{
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    int buildCount = Model.Count;
+    int counter = 0;
+}
+
+@while (counter < buildCount)
+{
+    if (counter > 1)
+    {
+        <div class="pageBreakBefore" />
+    }
+    <div class="teamDashboardContainer clearFloat">
+        @if (counter < buildCount)
+        {
+            <div class="teamDashboardLeft">@Html.Partial("DashboardPrint", Model[counter])</div>
+        }
+        @{counter++;}
+        @if (counter < buildCount)
+        {
+            <div class="teamDashboardRight">@Html.Partial("DashboardPrint", Model[counter])</div>
+        }
+        @{counter++;}
+    </div>
+}

@@ -11,6 +11,8 @@
 </form>
 
 <button id="saveButton" type="button" onclick="SaveTeam()">Save Team</button>
+<button id="validateButton" type="button" onclick="ValidateTeam()">Validate Team</button>
+<button id="teamPrintButton" type="button" onclick="ShowTeamDashboard()" disabled="disabled">Print Dashboard</button>
 
 <br />
 @Html.ActionLink("Back to Garage", "Index", "Garage", null, null)
@@ -22,6 +24,28 @@
     $(document).ajaxComplete(function () {
         $(document.body).css({ 'cursor': 'default' })
     });
+
+    function ShowTeamDashboard() {
+        team = $("#teamKey").val();
+        window.open("/Garage/GetDashboardForTeam?teamKey=" + team, "_blank");
+    }
+
+    function ValidateTeam() {
+        team = $("#teamKey").val();
+        $.ajax({
+            url: "ValidateTeam",
+            data: { teamKey: team },
+            type: "POST",
+            success: function (result) {
+                $("#TeamForm").html(result);
+                setTimeout(function () {
+                    if ($(".errors").length == 0) {
+                        $("#teamPrintButton").removeAttr("disabled");
+                    }
+                }, 1000);
+            }
+        });
+    }
 
     function SaveTeam() {
         $.ajax({

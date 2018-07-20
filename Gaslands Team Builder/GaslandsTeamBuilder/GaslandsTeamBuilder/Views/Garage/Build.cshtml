@@ -40,11 +40,11 @@
             type: "POST",
             success: function (result) {
                 $("#BuildForm").html(result);
-            },
-            complete: function() {
-                if ($(".errors").length == 0) {
-                    $("#buildPrintButton").removeAttr("disabled");
-                }
+                setTimeout(function () {
+                    if ($(".errors").length == 0) {
+                        $("#buildPrintButton").removeAttr("disabled");
+                    }
+                }, 1000);
             }
         });
     }
