@@ -48,13 +48,13 @@ form .generalInfoSpan {
     min-width: 60px;
 }
 
+form .driverInfoSection {
+    height: 100px;
+}
+
 form .floatHolder {
     width: 100%;
     min-height: 50px;
-}
-
-form .driverInfoSection {
-    height: 100px;
 }
 
 form .floatHolder .leftColumn {
@@ -175,3 +175,33 @@ div#dashboard {
         width: 20px;
         height: 20px;
     }
+
+/*Media tags*/
+@media (max-width: 900px) and (min-width: 350px) {
+    .container {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .buildDisplayTable {
+        margin: 5px 0px;
+        max-width: 850px;
+    }
+
+    form .floatHolder {
+        width: 100%;
+        min-height: 50px;
+    }
+
+        form .floatHolder .leftColumn {
+            width: 100%;
+        }
+
+        form .floatHolder .rightColumn {
+            width: 100%;
+        }
+}
