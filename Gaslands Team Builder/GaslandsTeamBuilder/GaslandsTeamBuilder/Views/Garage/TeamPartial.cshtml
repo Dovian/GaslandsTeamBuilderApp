@@ -26,7 +26,6 @@
                     <td>Name</td>
                     <td>Sponsor</td>
                     <td>Cans</td>
-                    <td>Remove</td>
                 </tr>
             </thead>
             @foreach (var build in Model.team.TeamBuilds)
@@ -35,6 +34,7 @@
                     <td>@build.Name</td>
                     <td>@(build.Sponsor != null ? build.Sponsor.Name : "")</td>
                     <td class="number">@build.FinalCanCost</td>
+                    <td>@Html.ActionLink("Edit","Build","Garage", new { key = build.Key }, null)</td>
                     <td><button class="removeBuild" type="button" onclick="RemoveBuild(@build.TeamBuildKey)">X</button></td>
                 </tr>
             }
