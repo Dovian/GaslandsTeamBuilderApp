@@ -176,7 +176,6 @@ namespace GaslandsTeamBuilderDataRepo
                 dbBuild.Name = updatedBuild.Name;
                 dbBuild.Notes = updatedBuild.Notes;
                 dbBuild.Sponsor = updatedBuild.Sponsor == 0 ? null : updatedBuild.Sponsor;
-                dbBuild.TeamBuilds = updatedBuild.TeamBuilds;
                 dbBuild.Vehicle = updatedBuild.Vehicle == 0 ? null : updatedBuild.Vehicle;
 
                 //Perks
