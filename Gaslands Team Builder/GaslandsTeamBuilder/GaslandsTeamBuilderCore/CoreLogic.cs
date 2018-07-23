@@ -112,8 +112,15 @@ namespace GaslandsTeamBuilderCore
                 }
             }
 
-            if (hasVehicle && new string[] { "Tank", "Helicopter", "Gyrocopter" }.Contains(build.Vehicle.Name))
-                container.UpgradeDropDown = container.UpgradeDropDown.Where(u => u.Name != "Tank Tracks").ToList();
+            if (hasVehicle)
+            {
+                if (new string[] { "Tank", "Helicopter", "Gyrocopter" }.Contains(build.Vehicle.Name))
+                    container.UpgradeDropDown = container.UpgradeDropDown.Where(u => u.Name != "Tank Tracks").ToList();
+
+                if (build.Vehicle.Name == "Bike")
+                    container.WeaponDropDown = container.WeaponDropDown.Where(w => w.Name != "Exploding Ram").ToList();
+
+            }
 
             return container;
         }
@@ -138,73 +145,122 @@ namespace GaslandsTeamBuilderCore
                     }
                 }
             }
-            //Sponsor specific vehicle/weightclass/weapon requirements (Rutherford, Miyazaki, Idris)
-            if (buildSponsor == "Rutherford" && hasVehicle && dbBuild.Vehicle1.WeightClass == "Lightweight")
+
+            if (hasVehicle)
             {
-                errors.Add("Rutherford cannot purchase lightweight vehicle: " + dbBuild.Vehicle1.Name);
-            }
-            else if (buildSponsor == "Miyazaki" && hasVehicle)
-            {
-                var limit = new string[] { "Truck", "Bus", "War Rig" };
-                if (limit.Contains(dbBuild.Vehicle1.Name))
+                if (buildSponsor == "Rutherford" && dbBuild.Vehicle1.WeightClass == "Lightweight")
                 {
-                    errors.Add("Miyazaki cannot purchase: " + dbBuild.Vehicle1.Name);
+                    errors.Add("Rutherford cannot purchase lightweight vehicle: " + dbBuild.Vehicle1.Name);
+                }
+                else if (buildSponsor == "Miyazaki")
+                {
+                    var limit = new string[] { "Truck", "Bus", "War Rig" };
+                    if (limit.Contains(dbBuild.Vehicle1.Name))
+                    {
+                        errors.Add("Miyazaki cannot purchase: " + dbBuild.Vehicle1.Name);
+                    }
+                }
+                else if (buildSponsor == "Idris" && dbBuild.Vehicle1.Name == "Gyrocopter")
+                {
+                    errors.Add("Idris cannot purchase a Gyrocopter");
+                }
+
+                if (buildSponsor != "Rutherford" && !string.IsNullOrEmpty(dbBuild.Vehicle1.SpecialRules) && dbBuild.Vehicle1.SpecialRules.Contains("Military"))
+                {
+                    errors.Add("Only Rutherford may purchase Military vehicle: " + dbBuild.Vehicle1.Name);
+                }
+                if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null)
+                {
+                    var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
+                    if (!limit.Contains(dbBuild.Vehicle1.Name))
+                    {
+                        errors.Add("Stunt Driver cannot be taken on a " + dbBuild.Vehicle1.Name);
+                    }
+                }
+                if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Experimental Nuclear Engine") != null && dbBuild.Vehicle1.WeightClass == "Lightweight")
+                {
+                    errors.Add("Experimental Nuclear Engine cannot be taken on a Lightweight vehicle.");
                 }
             }
-            else if (buildSponsor == "Idris" && hasVehicle && dbBuild.Vehicle1.Name == "Gyrocopter")
+            if (hasWeapon)
             {
-                errors.Add("Idris cannot purchase a Gyrocopter");
-            }
-            //Negative cases (Helicopter/Tank && !Rutherford, Electrical && !Mishkin, Prison Car && !Warden
-            if (hasVehicle && buildSponsor != "Rutherford" && !string.IsNullOrEmpty(dbBuild.Vehicle1.SpecialRules) && dbBuild.Vehicle1.SpecialRules.Contains("Military") )
-            {
-                errors.Add("Only Rutherford may purchase Military vehicle: " + dbBuild.Vehicle1.Name);
-            }
-            if (hasWeapon && dbBuild.BuildWeapons.Select(bw => bw.Weapon).Where(w => !string.IsNullOrEmpty(w.SpecialRules) && w.SpecialRules.Contains("Electrical")).Count() > 0
-                && buildSponsor != "Mishkin")
-            {
-                errors.Add("Only Mishkin may purchase weapons with the \"Electrical\" Special Rule");
-            }
-            if (hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Prison Car").Count() > 0 && hasVehicle
-                && (buildSponsor != "Warden Cadeila" || dbBuild.Vehicle1.WeightClass != "Middleweight"))
-            {
-                errors.Add("Only Warden Cadeila may purchase the \"Prison Car\" Upgrade and only on Middleweight vehicles");
-            }
-            //Upgrade limit checks(Extra Crew, Tank Tracks)
-            if (hasUpgrades && hasVehicle
-                && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Extra Crewmember").Count() > dbBuild.Vehicle1.Crew)
-            {
-                errors.Add("You may not have more than double a vehicle's crew with the \"Extra Crewmember\" upgrade");
-            }
-            if (hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 1)
-            {
-                errors.Add("You may not have more than one \"Tank Tracks\" upgrade");
-            }
-            if (hasUpgrades && dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 0 && hasVehicle)
-            {
-                var limit = new string[] { "Tank", "Helicopter", "Gyrocopter" };
-                if (limit.Contains(dbBuild.Vehicle1.Name))
+                if (dbBuild.BuildWeapons.Select(bw => bw.Weapon).Where(w => !string.IsNullOrEmpty(w.SpecialRules) && w.SpecialRules.Contains("Electrical")).Count() > 0
+                    && buildSponsor != "Mishkin")
                 {
-                    errors.Add("You may not purchase \"Tank Tracks\" on a " + dbBuild.Vehicle1.Name);
+                    errors.Add("Only Mishkin may purchase weapons with the \"Electrical\" Special Rule");
+                }
+                if (dbBuild.BuildWeapons.Where(bw => bw.Weapon.Name == "Ram").Count() > 1)
+                {
+                    int[] facing = new int[] { 0, 0, 0 };
+                    foreach (BuildWeapon ram in dbBuild.BuildWeapons.Where(bw => bw.Weapon.Name == "Ram"))
+                    {
+                        switch (ram.Facing)
+                        {
+                            case "Front":
+                                facing[0]++;
+                                break;
+                            case "Side":
+                                facing[1]++;
+                                break;
+                            case "Rear":
+                                facing[2]++;
+                                break;
+                            default:
+                                break;
+                        }
+                        if (facing[0] > 1 || facing[1] > 1 || facing[2] > 1)
+                            errors.Add("A vehicle may only purchase a \"Ram\" once per facing.");
+                    }
+                }
+                if (dbBuild.BuildWeapons.Where(bw => bw.Weapon.Name == "Exploding Ram").Count() > 0)
+                {
+                    if (dbBuild.BuildWeapons.Where(bw => bw.Weapon.Name == "Exploding Ram").Count() > 1)
+                        errors.Add("A vehicle may only purchase one \"Exploding Ram\"");
+
+                    if (hasVehicle && dbBuild.Vehicle1.Name == "Bike")
+                        errors.Add("Bikes may not purchase an \"Exploding Ram\"");
                 }
             }
-            //Perk specific limitations(Stunt Driver, Experimental Nuclear Engine)
-            if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null && hasVehicle)
+
+            if (hasUpgrades)
             {
-                var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
-                if (!limit.Contains(dbBuild.Vehicle1.Name))
+                if (hasVehicle)
                 {
-                    errors.Add("Stunt Driver cannot be taken on a " + dbBuild.Vehicle1.Name);
+                    if (dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Prison Car").Count() > 0
+                        && (buildSponsor != "Warden Cadeila" || dbBuild.Vehicle1.WeightClass != "Middleweight"))
+                    {
+                        errors.Add("Only Warden Cadeila may purchase the \"Prison Car\" Upgrade and only on Middleweight vehicles");
+                    }
+                    if (dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Extra Crewmember").Count() > dbBuild.Vehicle1.Crew)
+                    {
+                        errors.Add("You may not have more than double a vehicle's crew with the \"Extra Crewmember\" upgrade");
+                    }
+                    if (dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 0)
+                    {
+                        var limit = new string[] { "Tank", "Helicopter", "Gyrocopter" };
+                        if (limit.Contains(dbBuild.Vehicle1.Name))
+                        {
+                            errors.Add("You may not purchase \"Tank Tracks\" on a " + dbBuild.Vehicle1.Name);
+                        }
+                    }
                 }
-            }
-            if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Experimental Nuclear Engine") != null && hasVehicle && dbBuild.Vehicle1.WeightClass == "Lightweight")
-            {
-                errors.Add("Experimental Nuclear Engine cannot be taken on a Lightweight vehicle.");
+                if (dbBuild.BuildUpgrades.Select(bu => bu.Upgrade).Where(u => u.Name == "Tank Tracks").Count() > 1)
+                {
+                    errors.Add("You may not have more than one \"Tank Tracks\" upgrade");
+                }
             }
             //'Duh' checks
-            if(hasVehicle && hasWeapon && hasUpgrades)
+            if(hasVehicle)
             {
-                if (dbBuild.Vehicle1.BuildSlots - dbBuild.BuildWeapons.Sum(bw => bw.Weapon.BuildSlotCost) - dbBuild.BuildUpgrades.Sum(bu => bu.Upgrade.BuildSlotCost) < 0)
+                int buildSlots = 0;
+
+                if (hasWeapon)
+                    buildSlots += (int)dbBuild.BuildWeapons.Sum(bw => bw.Weapon.BuildSlotCost);
+
+                if (hasUpgrades)
+                    buildSlots += (int)dbBuild.BuildUpgrades.Sum(bu => bu.Upgrade.BuildSlotCost);
+
+                if (dbBuild.Vehicle1.BuildSlots - buildSlots < 0)
                     errors.Add("Build slots cannot be negative.");
             }
 
