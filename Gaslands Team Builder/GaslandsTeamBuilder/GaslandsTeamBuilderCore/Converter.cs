@@ -1,7 +1,7 @@
 ﻿using GaslandsTeamBuilderDataRepo;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Web;
 
 namespace GaslandsTeamBuilderCore
 {
@@ -43,7 +43,7 @@ namespace GaslandsTeamBuilderCore
                 {
                     Key = p.Key,
                     CanCost = p.CanCost.Value,
-                    Description = p.Description,
+                    Description = HttpUtility.HtmlDecode(p.Description),
                     Name = p.Name
                 })
                 .OrderBy(p => p.CanCost)
