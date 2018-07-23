@@ -58,6 +58,7 @@ namespace GaslandsTeamBuilderDataRepo
             {
                 try
                 {
+                    _db.TeamBuilds.RemoveRange(_db.TeamBuilds.Where(tb => tb.BuildKey == buildKey));
                     _db.BuildUpgrades.RemoveRange(_db.BuildUpgrades.Where(bu => bu.BuildKey == buildKey));
                     _db.BuildWeapons.RemoveRange(_db.BuildWeapons.Where(bw => bw.BuildKey == buildKey));
                     _db.Builds.Single(b => b.Key == buildKey).Perks.Clear();
