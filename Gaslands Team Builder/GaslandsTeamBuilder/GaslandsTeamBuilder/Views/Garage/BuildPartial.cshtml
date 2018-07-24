@@ -31,9 +31,9 @@
     <br />
     <div class="floatHolder driverInfoSection">
         <div class="leftColumn">
-            <span class="generalInfoSpan">Name: </span>@Html.TextBoxFor(model => model.build.Name)<br />
-            <span class="generalInfoSpan">Driver: </span>@Html.TextBoxFor(model => model.build.Driver)<br />
-            <span class="generalInfoSpan">Notes: </span>@Html.TextAreaFor(model => model.build.Notes)<br />
+            <span class="generalInfoSpan">Name: </span>@Html.TextBoxFor(model => model.build.Name, new { onchange = "SaveBuild()" })<br />
+            <span class="generalInfoSpan">Driver: </span>@Html.TextBoxFor(model => model.build.Driver, new { onchange = "SaveBuild()" })<br />
+            <span class="generalInfoSpan">Notes: </span>@Html.TextAreaFor(model => model.build.Notes, new { onchange = "SaveBuild()" })<br />
         </div>
         <div class="rightColumn">
             @Html.DropDownListFor(model => model.build.Sponsor.Key, Model.SponsorDropDown, "--Select Sponsor--", new { @onchange = "SaveBuild()" })<br />

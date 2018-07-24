@@ -9,9 +9,9 @@
 
 
     Name:
-    @Html.TextBoxFor(model => model.team.Name)<br />
+    @Html.TextBoxFor(model => model.team.Name, new { onchange = "SaveTeam()" })<br />
     Notes:
-    @Html.TextAreaFor(model => model.team.Notes)<br />
+    @Html.TextAreaFor(model => model.team.Notes, new { onchange = "SaveTeam()" })<br />
     Sponsor:
     @Html.DisplayFor(model => model.team.Sponsor)<br />
     Total Cans:
