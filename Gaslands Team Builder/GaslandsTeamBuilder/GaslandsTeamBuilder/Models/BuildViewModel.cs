@@ -2,6 +2,7 @@
 using GaslandsTeamBuilderCore.Entities;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace GaslandsTeamBuilder.Models
 {
@@ -39,7 +40,30 @@ namespace GaslandsTeamBuilder.Models
 
         public void PrepForPrint()
         {
-            
+            if(build.Perks != null)
+            {
+                string[] perksToRemove = new string[]
+                {
+                    "Might Is Right",
+                    "Military Hardware",
+                    "Elegance",
+                    "Thumpermonkey",
+                    "N20 Addict",
+                    "Kiss My Asphalt",
+                    "Prison Cars"
+                };
+                build.Perks.RemoveAll(p => perksToRemove.Contains(p.Name));
+            }
+            if(SpecialRules.Count > 0)
+            {
+                string[] rulesToRemove = new string[]
+                {
+                    "Electrical",
+                    "Military",
+                    "Bombs Away"
+                };
+                SpecialRules.RemoveAll(sr => rulesToRemove.Contains(sr.Name));
+            }
         }
     }
 }

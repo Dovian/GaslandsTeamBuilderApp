@@ -74,6 +74,7 @@ namespace GaslandsTeamBuilder.Controllers
             BuildViewModel model = new BuildViewModel();
             model.build = _coreLogic.GetBuild(buildKey, _AppUserState.UserId);
             model.SpecialRules = _coreLogic.GetSpecialRules(model.build);
+            model.PrepForPrint();
 
             return View("DashboardPrint", model);
         }
@@ -92,6 +93,10 @@ namespace GaslandsTeamBuilder.Controllers
             _team.team = _coreLogic.GetTeam(teamKey, _AppUserState.UserId);
             var builds = _team.team.TeamBuilds.Select(tb => _coreLogic.GetBuild(tb.Key, _AppUserState.UserId)).ToList();
             var model = builds.Select(b => new BuildViewModel(b, null, _coreLogic.GetSpecialRules(b).ToList())).ToList();
+            foreach(BuildViewModel bvm in model)
+            {
+                bvm.PrepForPrint();
+            }
 
             return View("TeamDashboardPrint", model);
         }
