@@ -76,7 +76,7 @@ namespace GaslandsTeamBuilder.Controllers
             model.SpecialRules = _coreLogic.GetSpecialRules(model.build);
             model.PrepForPrint();
 
-            return View("DashboardPrint", model);
+            return View("BuildDashboardPrint", model);
         }
 
         public ActionResult ValidateBuild(int buildKey)
