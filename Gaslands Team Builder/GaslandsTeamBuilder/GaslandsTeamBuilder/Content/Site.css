@@ -88,6 +88,10 @@ form .floatHolder .rightColumn {
         }
 
 /*Printable Dashboard settings*/
+@page {
+    margin: 0.4in;
+}
+
 .pageBreakBefore {
     page-break-before: always;
 }
@@ -124,7 +128,7 @@ form .floatHolder .rightColumn {
 
 div#dashboard {
     width: 360pt;
-    min-height: 520pt;
+    min-height: 504pt;
     border: 2px solid black;
     font-size: 12px;
 }
