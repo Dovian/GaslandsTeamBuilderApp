@@ -10,7 +10,7 @@ namespace GaslandsTeamBuilderDataRepo
 
         public int Login(string username, string password)
         {
-            var user = _db.Users.SingleOrDefault(u => u.Username == username);
+            var user = _db.Users.SingleOrDefault(u => u.Username.ToLower() == username.ToLower());
 
             if (user != null)
             {
