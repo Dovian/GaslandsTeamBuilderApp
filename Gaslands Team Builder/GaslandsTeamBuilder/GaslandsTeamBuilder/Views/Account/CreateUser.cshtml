@@ -46,7 +46,11 @@
             $("#passwordMismatch").removeAttr("hidden");
         }
         else {
-            $("#CreateUserForm").addClass("disabled");
+            $("form input").each(function () {
+                $(this).attr("readonly", "readonly");
+            });
+            $("#CreateUser").attr("disabled", "disabled");
+            
             $.ajax({
                 url: "/Account/CreateUser",
                 data: $("#CreateUserForm").serialize(),
@@ -56,7 +60,10 @@
                         window.location.href = "/Garage/";
                     }
                     else {
-                        $("#CreateUserForm").removeClass("disabled");
+                        $("form input").each(function () {
+                            $(this).removeAttr("readonly");
+                        });
+                        $("#CreateUser").removeAttr("disabled");
                         $("#createErrors").html(result);
                     }
                 }
