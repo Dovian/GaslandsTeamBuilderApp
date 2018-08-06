@@ -52,6 +52,27 @@ namespace GaslandsTeamBuilderDataRepo
             return team.Key;
         }
 
+        public int CopyBuild(int buildToCopy, int userId)
+        {
+            var build = _db.Builds.Include("Perks").Single(b => b.Key == buildToCopy && b.User == userId);
+            
+            _db.Builds.Add(build);
+            _db.SaveChanges();
+
+            var reference = _db.Builds.Include("BuildWeapons").Include("BuildUpgrades").Single(b => b.Key == buildToCopy && b.User == userId);
+
+            foreach (var upgrades in reference.BuildUpgrades)
+            {
+                AddUpgradeToBuild(build.Key, upgrades.UpgradeKey, userId);
+            }
+            foreach(var weapons in reference.BuildWeapons)
+            {
+                AddWeaponToBuild(build.Key, weapons.WeaponKey, weapons.Facing, userId);
+            }
+
+            return build.Key;
+        }
+
         public int DeleteBuild(int buildKey, int userId)
         {
             if (_db.Builds.SingleOrDefault(b => b.Key == buildKey && b.User == userId) != null)

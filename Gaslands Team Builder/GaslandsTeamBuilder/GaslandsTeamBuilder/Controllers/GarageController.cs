@@ -69,6 +69,12 @@ namespace GaslandsTeamBuilder.Controllers
         }
 
         #region AjaxCalls
+        public ActionResult CopyBuild(int buildKey)
+        {
+            var copiedBuildKey = _coreLogic.CopyBuild(buildKey, _AppUserState.UserId);
+            return RedirectToAction("Build", new { key = copiedBuildKey });
+        }
+
         public ActionResult GetDashboardForBuild(int buildKey)
         {
             BuildViewModel model = new BuildViewModel();
