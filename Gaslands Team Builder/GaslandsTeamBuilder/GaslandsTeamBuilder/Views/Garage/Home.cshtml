@@ -49,6 +49,7 @@ Builds:
         <thead>
             <tr>
                 <td>Name</td>
+                <td>Sponsor</td>
                 <td>Vehicle</td>
                 <td>Cost</td>
                 <td></td>
@@ -59,7 +60,8 @@ Builds:
         {
             <tr>
                 <td>@build.Name</td>
-                <td>@(build.Vehicle != null ? build.Vehicle.Name : "---")</td>
+                <td>@(build.Sponsor != null ? (string.IsNullOrEmpty(build.Sponsor.Name) ? "---" : build.Sponsor.Name) : "---")</td>
+                <td>@(build.Vehicle != null ? (string.IsNullOrEmpty(build.Vehicle.Name) ? "---" : build.Vehicle.Name) : "---")</td>
                 <td class="number">@build.FinalCanCost</td>
                 <td>@Html.ActionLink("Edit", "Build", "Garage", new { key = build.Key }, null)</td>
                 <td>@Html.ActionLink("Delete", "DeleteBuild", "Garage", new { key = build.Key }, null)</td>

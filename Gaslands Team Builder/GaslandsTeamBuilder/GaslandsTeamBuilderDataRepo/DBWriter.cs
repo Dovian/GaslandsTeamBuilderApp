@@ -9,7 +9,7 @@ namespace GaslandsTeamBuilderDataRepo
         
         public int CreateUser(string username, string password)
         {
-            if((_db.Users.SingleOrDefault(u => u.Username == username)) != null)
+            if((_db.Users.SingleOrDefault(u => u.Username.ToLower() == username.ToLower())) != null)
             {
                 return -1;
             }

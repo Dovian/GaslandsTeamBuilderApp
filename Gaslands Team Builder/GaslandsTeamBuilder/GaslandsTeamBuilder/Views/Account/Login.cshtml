@@ -39,7 +39,10 @@
     });
 
     function Login() {
-        $("#LoginForm").addClass("disabled");
+        $("form input").each(function () {
+            $(this).attr("readonly", "readonly");
+        });
+        $("#Login").attr("disabled", "disabled");
         $.ajax({
             url: "/Account/TryLogin",
             data: $("#LoginForm").serialize(),
@@ -49,7 +52,10 @@
                     window.location.href = "/Garage/";
                 }
                 else {
-                    $("#LoginForm").removeClass("disabled");
+                    $("form input").each(function () {
+                        $(this).removeAttr("readonly");
+                    });
+                    $("#Login").attr("disabled", "disabled");
                     $("#loginErrors").html(result);
                 }
             }

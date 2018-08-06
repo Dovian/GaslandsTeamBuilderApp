@@ -67,6 +67,11 @@ form .floatHolder .rightColumn {
     float: right;
 }
 
+form input:read-only {
+    color: darkgray;
+    background-color: lightgray;
+}
+
 /*Table Display settings*/
 .buildDisplayTable {
     margin: 5px 0px;
