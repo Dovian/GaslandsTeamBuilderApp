@@ -29,9 +29,9 @@ namespace GaslandsTeamBuilderCore
             return _dBReader.Login(username, password);
         }
 
-        public int CopyBuild(Entities.Build build, int userId)
+        public int CopyBuild(int buildKey, int userId)
         {
-            return _dBWriter.CreateBuild(userId, _converter.ConvertToDBBuild(build));
+            return _dBWriter.CopyBuild(buildKey, userId);
         }
 
         public Entities.Build GetBuild(int key, int userId)

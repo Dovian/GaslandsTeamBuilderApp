@@ -5,6 +5,7 @@
         int CreateUser(string username, string password);
         int CreateTeam(int userId);
         int CreateBuild(int userId, Build build = null);
+        int CopyBuild(int buildToCopy, int userId);
         Team UpdateTeam(Team team, int userId);
         Build UpdateBuild(Build build, int userId, bool updatePerks = false);
         Build AddUpgradeToBuild(int buildKey, int upgradeKey, int userId);

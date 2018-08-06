@@ -7,7 +7,7 @@ namespace GaslandsTeamBuilderCore
     {
         int CreateUser(string username, string password);
         int Login(string username, string password);
-        int CopyBuild(Build build, int userId);
+        int CopyBuild(int buildKey, int userId);
         int CreateBuild(int userId);
         int CreateTeam(int userId);
         Build UpdateBuild(Build build, int userId);
