@@ -1,11 +1,18 @@
-﻿body {
+﻿html, body {
+    height: 100%;
+}
+body {
     font-family: Arial;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    flex: 1 0 auto;
+    padding-top: 50px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -14,6 +21,36 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+
+/* Header & Footer styles */
+.header {
+    position: fixed;
+    top: 0;
+    background-color: lightgray;
+    color: black;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    min-height: 50px;
+    text-align: center;
+}
+    .header span {
+        margin: 0px 10px;
+    }
+    .header a {
+        font-weight: 600;
+    }
+
+.footer {
+    background-color: black;
+    color: white;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+    .footer div {
+        margin: 10px;
+    }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -57,15 +94,15 @@ form .floatHolder {
     min-height: 50px;
 }
 
-form .floatHolder .leftColumn {
-    width: 50%;
-    float: left;
-}
+    form .floatHolder .leftColumn {
+        width: 50%;
+        float: left;
+    }
 
-form .floatHolder .rightColumn {
-    width: 50%;
-    float: right;
-}
+    form .floatHolder .rightColumn {
+        width: 50%;
+        float: right;
+    }
 
 form input:read-only {
     color: darkgray;
@@ -191,6 +228,7 @@ div#dashboard {
         margin-left: 2px;
         margin-right: 2px;
     }
+
     .body-content {
         padding-left: 15px;
         padding-right: 15px;
