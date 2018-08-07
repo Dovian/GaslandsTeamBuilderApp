@@ -223,7 +223,7 @@ div#dashboard {
     }
 
 /*Media tags*/
-@media (max-width: 900px) and (min-width: 350px) {
+@media (max-width: 1200px) and (min-width: 350px) {
     .container {
         margin-left: 2px;
         margin-right: 2px;
