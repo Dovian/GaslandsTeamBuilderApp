@@ -13,11 +13,21 @@
 <body>
     @if (ViewData["UserState"].ToString() != "|0")
     {
-        <div class="header">@Html.ActionLink("Sign Out", "SignOut", "Account", null, null)</div>
+        <div class="header">
+            <span>@Html.ActionLink("Garage", "Index", "Garage", null, null)</span> |
+            <span>@Html.ActionLink("Sign Out", "SignOut", "Account", null, null)</span>
+        </div>
     }
     <div class="container body-content">
         @RenderBody()
         <hr />
+    </div>
+    <div class="footer">
+        <div>@Html.ActionLink("Changelog", "Changelog", "Info", null, null)</div>
+
+        <div>Designed, built, and maintained by Daniel DeBoer</div>
+
+        <div>Bug Reports and feature requests at <a href="https://github.com/Dovian/GaslandsTeamBuilderApp/issues">Github</a></div>
     </div>
     @RenderSection("scripts", required: false)
 </body>
