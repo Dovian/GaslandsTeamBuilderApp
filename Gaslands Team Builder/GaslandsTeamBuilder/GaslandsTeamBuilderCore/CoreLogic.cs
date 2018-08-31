@@ -184,6 +184,10 @@ namespace GaslandsTeamBuilderCore
             }
             if (hasWeapon)
             {
+                if(dbBuild.BuildWeapons.Select(bw => bw.Weapon).Where(w => !string.IsNullOrEmpty(w.SpecialRules) && w.SpecialRules.Contains("Specialist")).Count() > 1)
+                {
+                    errors.Add("A vehicle may only ever purchase one weapon with the 'Specialist' special rule.");
+                }
                 if (dbBuild.BuildWeapons.Select(bw => bw.Weapon).Where(w => !string.IsNullOrEmpty(w.SpecialRules) && w.SpecialRules.Contains("Electrical")).Count() > 0
                     && buildSponsor != "Mishkin")
                 {

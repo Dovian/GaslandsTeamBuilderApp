@@ -100,6 +100,11 @@ namespace GaslandsTeamBuilderCore.Entities
             {
                 totalDiscount += (int)(Upgrades.Where(u => u.Name == "Nitro Booster").Sum(u => u.CanCost) * 0.5);
             }
+            //Scarlett Annie Crew Discount
+            if(Sponsor != null && Sponsor.Name == "Scarlett Annie")
+            {
+                totalDiscount += (int)(Upgrades.Where(u => u.Name == "Extra Crewmember").Sum(u => u.CanCost) * 0.5);
+            }
 
             return totalDiscount;
         }
