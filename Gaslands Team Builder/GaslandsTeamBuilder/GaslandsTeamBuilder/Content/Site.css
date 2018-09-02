@@ -40,6 +40,11 @@ body {
     .header a {
         font-weight: 600;
     }
+    .header .important {
+        color: darkred;
+        font-weight: 700;
+        font-size: 18px;
+    }
 
 .footer {
     background-color: black;
@@ -223,7 +228,7 @@ div#dashboard {
     }
 
 /*Media tags*/
-@media (max-width: 900px) and (min-width: 350px) {
+@media (max-width: 1200px) and (min-width: 350px) {
     .container {
         margin-left: 2px;
         margin-right: 2px;
