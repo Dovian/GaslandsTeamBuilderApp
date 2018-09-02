@@ -104,8 +104,8 @@ namespace GaslandsTeamBuilderCore
 
                 if (hasVehicle)
                 {
-                    if (container.PerkDropDown.Where(p => p.Name == "Stunt Driver").Count() > 0 && !new string[] { "Bike", "Buggy", "Car", "Performance Car" }.Contains(build.Vehicle.Name))
-                        container.PerkDropDown = container.PerkDropDown.Where(p => p.Name != "Stunt Driver").ToList();
+                    if (container.PerkDropDown.Where(p => p.Name == "Stunt Driver" || p.Name == "Skiing").Count() > 0 && !new string[] { "Bike", "Buggy", "Car", "Performance Car" }.Contains(build.Vehicle.Name))
+                        container.PerkDropDown = container.PerkDropDown.Where(p => p.Name != "Stunt Driver" && p.Name != "Skiing").ToList();
 
                     if (container.PerkDropDown.Where(p => p.Name == "Experimental Nuclear Engine").Count() > 0 && build.Vehicle.WeightClass == "Lightweight")
                         container.PerkDropDown = container.PerkDropDown.Where(p => p.Name != "Experimental Nuclear Engine").ToList();
@@ -168,6 +168,14 @@ namespace GaslandsTeamBuilderCore
                 if (buildSponsor != "Rutherford" && !string.IsNullOrEmpty(dbBuild.Vehicle1.SpecialRules) && dbBuild.Vehicle1.SpecialRules.Contains("Military"))
                 {
                     errors.Add("Only Rutherford may purchase Military vehicle: " + dbBuild.Vehicle1.Name);
+                }
+                if(dbBuild.Perks.Single(p => p.Name == "Skiing") != null)
+                {
+                    var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
+                    if (!limit.Contains(dbBuild.Vehicle1.Name))
+                    {
+                        errors.Add("Skiing cannot be taken on a " + dbBuild.Vehicle1.Name);
+                    }
                 }
                 if (dbBuild.Perks.SingleOrDefault(p => p.Name == "Stunt Driver") != null)
                 {
