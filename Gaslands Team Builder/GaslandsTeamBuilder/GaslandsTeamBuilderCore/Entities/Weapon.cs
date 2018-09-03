@@ -14,6 +14,14 @@ namespace GaslandsTeamBuilderCore.Entities
         public List<string> FacingAllowed { get; set; }
         public string Attack { get; set; }
 
+        public string SpecialRulesDisplay
+        {
+            get
+            {
+                return SpecialRules.Replace(",", ", ");
+            }
+        }
+
         public string ListDisplay
         {
             get

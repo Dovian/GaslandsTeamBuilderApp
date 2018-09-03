@@ -169,7 +169,7 @@ namespace GaslandsTeamBuilderCore
                 {
                     errors.Add("Only Rutherford may purchase Military vehicle: " + dbBuild.Vehicle1.Name);
                 }
-                if(dbBuild.Perks.Single(p => p.Name == "Skiing") != null)
+                if(dbBuild.Perks.SingleOrDefault(p => p.Name == "Skiing") != null)
                 {
                     var limit = new string[] { "Bike", "Buggy", "Car", "Performance Car" };
                     if (!limit.Contains(dbBuild.Vehicle1.Name))
