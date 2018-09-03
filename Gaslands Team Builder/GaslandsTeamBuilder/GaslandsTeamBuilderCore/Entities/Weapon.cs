@@ -18,7 +18,7 @@ namespace GaslandsTeamBuilderCore.Entities
         {
             get
             {
-                return SpecialRules.Contains(",") ? SpecialRules.Replace(",", ", ") : SpecialRules;
+                return SpecialRules != null ? (SpecialRules.Contains(",") ? SpecialRules.Replace(",", ", ") : SpecialRules) : "";
             }
         }
 
