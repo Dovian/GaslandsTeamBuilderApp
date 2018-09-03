@@ -50,7 +50,8 @@ namespace GaslandsTeamBuilder.Models
                     "Thumpermonkey",
                     "N20 Addict",
                     "Kiss My Asphalt",
-                    "Prison Cars"
+                    "Prison Cars",
+                    "Crew Quarters"
                 };
                 build.Perks.RemoveAll(p => perksToRemove.Contains(p.Name));
             }
@@ -60,7 +61,8 @@ namespace GaslandsTeamBuilder.Models
                 {
                     "Electrical",
                     "Military",
-                    "Bombs Away"
+                    "Bombs Away",
+                    "Specialist"
                 };
                 SpecialRules.RemoveAll(sr => rulesToRemove.Contains(sr.Name));
             }
